@@ -9,8 +9,8 @@
   "main": "dist/js/app.js",
   "license": "MIT",
   "files": [
-    "dist/app.js",
-    "dist/lite.js",
+    "dist/js/app.js",
+    "dist/js/lite.js",
     "src"
   ],
   "keywords": [
