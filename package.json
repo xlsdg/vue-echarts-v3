@@ -1,7 +1,7 @@
 {
   "name": "vue-echarts-v3",
   "title": "vue-echarts-v3",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Vue 2.0 component wrap for ECharts(v3.x)",
   "author": "xLsDg <xlsdg@qq.com> (https://blog.xlsdg.org/)",
   "homepage": "https://github.com/xlsdg/vue-echarts-v3",
