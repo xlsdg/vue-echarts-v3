@@ -12,7 +12,9 @@ var webpackConfig = merge(baseWebpackConfig, {
   devtool: '#source-map',
   output: {
     filename: 'js/[name].js',
-    chunkFilename: 'js/[id].js'
+    chunkFilename: 'js/[id].js',
+    library: 'IECharts',
+    libraryTarget: 'umd'
   },
   vue: {
     loaders: utils.cssLoaders({
