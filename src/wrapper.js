@@ -116,27 +116,26 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
         }
       }
     },
-    // watch: {
-    //   loading: {
-    //     handler: (newVal, oldVal) => {
-    //       console.dir(this);
-    //       this.ifLoading(newVal);
-    //     },
-    //     deep: false
-    //   },
-    //   option: {
-    //     handler: (newVal, oldVal) => {
-    //       this.instance.setOption(newVal, true, this.lazyUpdate);
-    //     },
-    //     deep: true
-    //   },
-    //   group: {
-    //     handler: (newVal, oldVal) => {
-    //       this.instance.group = newVal;
-    //     },
-    //     deep: false
-    //   }
-    // },
+    watch: {
+      loading: {
+        handler: function(loading) {
+          this.ifLoading(loading);
+        },
+        deep: false
+      },
+      option: {
+        handler: function(option) {
+          this.instance.setOption(option, true, this.lazyUpdate);
+        },
+        deep: true
+      },
+      group: {
+        handler: function(group) {
+          this.instance.group = group;
+        },
+        deep: false
+      }
+    },
     methods: {
       init() {
         const that = this;
@@ -152,7 +151,7 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
           that.$nextTick(() => {
             that.ifLoading(that.loading);
             that.update();
-            that.watch();
+            // that.watch();
             that.bind();
           });
           ResizeEvent(dom, that._resize);
@@ -160,13 +159,12 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
       },
       bind() {
         const that = this;
-        let i = 0, len = 0;
-        for (i = 0, len = ACTION_EVENTS.length; i < len; i++) {
+        for (let i = 0, len = ACTION_EVENTS.length; i < len; i++) {
           that.instance.on(ACTION_EVENTS[i], (event) => {
             that.$emit(ACTION_EVENTS[i], event);
           }, that);
         }
-        for (i = 0, len = MOUSE_EVENTS.length; i < len; i++) {
+        for (let i = 0, len = MOUSE_EVENTS.length; i < len; i++) {
           that.instance.on(MOUSE_EVENTS[i], (event) => {
             that.$emit(MOUSE_EVENTS[i], event);
           }, that);
@@ -174,11 +172,10 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
       },
       unbind() {
         const that = this;
-        let i = 0, len = 0;
-        for (i = 0, len = ACTION_EVENTS.length; i < len; i++) {
+        for (let i = 0, len = ACTION_EVENTS.length; i < len; i++) {
           that.instance.off(ACTION_EVENTS[i]);
         }
-        for (i = 0, len = MOUSE_EVENTS.length; i < len; i++) {
+        for (let i = 0, len = MOUSE_EVENTS.length; i < len; i++) {
           that.instance.off(MOUSE_EVENTS[i]);
         }
       },
@@ -287,7 +284,7 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
         const that = this;
         if (that.instance) {
           that.unbind();
-          that.unwatch();
+          // that.unwatch();
           that.instance.dispose();
           that.instance = null;
         }

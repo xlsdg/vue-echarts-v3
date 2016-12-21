@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Echart from './index';
+import Echart from './full';
 
 /* eslint-disable no-new */
 new Vue({

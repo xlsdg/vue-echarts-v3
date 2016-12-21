@@ -9,8 +9,7 @@
   "main": "dist/js/app.js",
   "license": "MIT",
   "files": [
-    "dist/js/app.js",
-    "dist/js/lite.js",
+    "dist",
     "src"
   ],
   "keywords": [
@@ -47,12 +46,12 @@
     "babel-runtime": "^6.20.0",
     "css-loader": "^0.26.1",
     "eslint": "^3.12.2",
-    "eslint-config-airbnb-base": "^11.0.0",
     "eslint-friendly-formatter": "^2.0.6",
-    "eslint-import-resolver-webpack": "^0.8.0",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-html": "^1.7.0",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "function-bind": "^1.1.0",
     "html-webpack-plugin": "^2.24.1",
