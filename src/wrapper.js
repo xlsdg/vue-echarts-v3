@@ -1,5 +1,3 @@
-import ResizeEvent from 'element-resize-event';
-
 const ACTION_EVENTS = [
   'legendselectchanged',
   'legendselected',
@@ -35,7 +33,7 @@ const MOUSE_EVENTS = [
   'globalout'
 ];
 
-function wrapECharts(ECharts) {
+exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
   return {
     name: 'IECharts',
     props: {
@@ -118,6 +116,27 @@ function wrapECharts(ECharts) {
         }
       }
     },
+    // watch: {
+    //   loading: {
+    //     handler: (newVal, oldVal) => {
+    //       console.dir(this);
+    //       this.ifLoading(newVal);
+    //     },
+    //     deep: false
+    //   },
+    //   option: {
+    //     handler: (newVal, oldVal) => {
+    //       this.instance.setOption(newVal, true, this.lazyUpdate);
+    //     },
+    //     deep: true
+    //   },
+    //   group: {
+    //     handler: (newVal, oldVal) => {
+    //       this.instance.group = newVal;
+    //     },
+    //     deep: false
+    //   }
+    // },
     methods: {
       init() {
         const that = this;
@@ -338,6 +357,4 @@ function wrapECharts(ECharts) {
       // console.log('destroyed');
     }
   };
-}
-
-export default wrapECharts;
+};

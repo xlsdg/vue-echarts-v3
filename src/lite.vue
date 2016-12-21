@@ -7,8 +7,11 @@
 
 <script>
   import ECharts from 'echarts/lib/echarts';
+  import ResizeEvent from 'element-resize-event';
   import Wrapper from './wrapper';
 
-  const IECharts = Wrapper(ECharts);
-  export default IECharts;
+  const IECharts = Wrapper(ECharts, ResizeEvent);
+  export default {
+    mixins: [IECharts]
+  };
 </script>
