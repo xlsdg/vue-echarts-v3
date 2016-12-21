@@ -4,7 +4,7 @@
 
 ## Installation
 
-```
+``` bash
 $ npm install --save vue-echarts-v3
 ```
 

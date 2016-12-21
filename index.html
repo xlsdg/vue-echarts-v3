@@ -5,17 +5,17 @@
     <title>vue-echarts-v3</title>
     <style type="text/css">
       .echart {
-        width: 800px;
-        height: 900px;
+        width: 600px;
+        height: 400px;
       }
     </style>
   </head>
   <body>
     <div id="app">
       <div class="echart">
-        <echart :option="bar" :loading="loading" v-on:ready="onReady"></echart>
+        <echart :option="bar" :loading="loading" @ready="onReady" @click="onClick"></echart>
       </div>
-      <button @click="doloading">loading</button>
+      <button @click="doLoading">Random</button>
     </div>
     <!-- built files will be auto injected -->
   </body>

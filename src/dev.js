@@ -26,12 +26,20 @@ new Vue({
     }
   }),
   methods: {
-    doloading() {
-      this.loading = !this.loading;
-      this.bar.series[0].data = [15, 10, 16, 20, 30, 20];
+    doLoading() {
+      const that = this;
+      let data = [];
+      for (let i = 0, min = 5, max = 99; i < 6; i++) {
+        data.push(Math.floor(Math.random() * (max + 1 - min) + min));
+      }
+      that.loading = !that.loading;
+      that.bar.series[0].data = data;
     },
-    onReady(instance) {
-      // console.log(instance);
+    onReady(ins) {
+      console.dir(ins);
+    },
+    onClick(e) {
+      console.dir(e);
     }
   }
 });

@@ -1,4 +1,11 @@
-const ACTION_EVENTS = [
+const ECHARTS_EVENTS = [
+  'click',
+  'dblclick',
+  'mouseover',
+  'mouseout',
+  'mousedown',
+  'mouseup',
+  'globalout',
   'legendselectchanged',
   'legendselected',
   'legendunselected',
@@ -21,16 +28,6 @@ const ACTION_EVENTS = [
   'axisareaselected',
   'brush',
   'brushselected'
-];
-
-const MOUSE_EVENTS = [
-  'click',
-  'dblclick',
-  'mouseover',
-  'mouseout',
-  'mousedown',
-  'mouseup',
-  'globalout'
 ];
 
 exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
@@ -119,19 +116,22 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
     watch: {
       loading: {
         handler: function(loading) {
-          this.ifLoading(loading);
+          const that = this;
+          that.ifLoading(loading);
         },
         deep: false
       },
       option: {
         handler: function(option) {
-          this.instance.setOption(option, true, this.lazyUpdate);
+          const that = this;
+          that.instance.setOption(option, that.notMerge, that.lazyUpdate);
         },
         deep: true
       },
       group: {
         handler: function(group) {
-          this.instance.group = group;
+          const that = this;
+          that.instance.group = group;
         },
         deep: false
       }
@@ -148,7 +148,7 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
           instance.group = that.group;
           that.instance = instance;
           that.$emit('ready', instance);
-          that.$nextTick(() => {
+          that.$nextTick(function() {
             that.ifLoading(that.loading);
             that.update();
             // that.watch();
@@ -159,24 +159,40 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
       },
       bind() {
         const that = this;
-        for (let i = 0, len = ACTION_EVENTS.length; i < len; i++) {
-          that.instance.on(ACTION_EVENTS[i], (event) => {
-            that.$emit(ACTION_EVENTS[i], event);
-          }, that);
-        }
-        for (let i = 0, len = MOUSE_EVENTS.length; i < len; i++) {
-          that.instance.on(MOUSE_EVENTS[i], (event) => {
-            that.$emit(MOUSE_EVENTS[i], event);
-          }, that);
+        if (that._events) {
+          for (let e in that._events) {
+            if (Object.prototype.hasOwnProperty.call(that._events, e)) {
+              let name = e.toLowerCase();
+              if (ECHARTS_EVENTS.indexOf(name) > -1) {
+                that.instance.on(name, function(event) {
+                  that.$emit(name, event);
+                });
+              }
+            }
+          }
+        } else {
+          for (let i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
+            that.instance.on(ECHARTS_EVENTS[i], function(event) {
+              that.$emit(ECHARTS_EVENTS[i], event);
+            });
+          }
         }
       },
       unbind() {
         const that = this;
-        for (let i = 0, len = ACTION_EVENTS.length; i < len; i++) {
-          that.instance.off(ACTION_EVENTS[i]);
-        }
-        for (let i = 0, len = MOUSE_EVENTS.length; i < len; i++) {
-          that.instance.off(MOUSE_EVENTS[i]);
+        if (that._events) {
+          for (let e in that._events) {
+            if (Object.prototype.hasOwnProperty.call(that._events, e)) {
+              let name = e.toLowerCase();
+              if (ECHARTS_EVENTS.indexOf(name) > -1) {
+                that.instance.off(name);
+              }
+            }
+          }
+        } else {
+          for (let i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
+            that.instance.off(ECHARTS_EVENTS[i]);
+          }
         }
       },
       ifLoading(loading) {
@@ -189,15 +205,15 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
       },
       watch() {
         const that = this;
-        that.watches.loading = that.$watch('loading', (loading) => {
+        that.watches.loading = that.$watch('loading', function(loading) {
           that.ifLoading(loading);
         });
-        that.watches.option = that.$watch('option', (option) => {
-          that.instance.setOption(option, true, that.lazyUpdate);
+        that.watches.option = that.$watch('option', function(option) {
+          that.instance.setOption(option, that.notMerge, that.lazyUpdate);
         }, {
           deep: true
         });
-        that.watches.group = that.$watch('group', (group) => {
+        that.watches.group = that.$watch('group', function(group) {
           that.instance.group = group;
         });
       },
