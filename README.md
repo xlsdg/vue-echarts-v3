@@ -7,7 +7,7 @@
 
 1. 轻量, 高效, 按需绑定事件;
 2. 支持按需引入 ECharts.js 的图表和组件;
-3. 配合 [vue-grid-layout](https://github.com/jbaysolutions/vue-grid-layout) 支持拖拽布局;
+3. 支持组件 resize 事件自动更新视图;
 
 
 ## Installation
