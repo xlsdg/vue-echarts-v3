@@ -179,6 +179,10 @@ $ npm install --save vue-echarts-v3
 
   Optional; [Detail](https://ecomfe.github.io/echarts-doc/public/en/api.html#echartsInstance.showLoading)
 
+* `resizable`
+
+  Optional; `false` by defualt.
+
 See more [ECharts' Option](http://echarts.baidu.com/option.html)
 
 ## Methods

@@ -81,6 +81,11 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
       loadingOpts: {
         type: Object,
         required: false
+      },
+      resizable: {
+        type: Boolean,
+        required: false,
+        default: false
       }
     },
     data() {
@@ -154,7 +159,9 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
             // that.watch();
             that.bind();
           });
-          ResizeEvent(dom, that._resize);
+          if (that.resizable) {
+            ResizeEvent(dom, that._resize);
+          }
         }
       },
       bind() {
