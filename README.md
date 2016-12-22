@@ -7,7 +7,7 @@
 
 1. 轻量, 高效, 按需绑定事件;
 2. 支持按需引入 ECharts.js 的图表和组件;
-3. 配合[vue-grid-layout](https://github.com/jbaysolutions/vue-grid-layout)支持拖拽布局;
+3. 配合 [vue-grid-layout](https://github.com/jbaysolutions/vue-grid-layout) 支持拖拽布局;
 
 
 ## Installation
@@ -26,7 +26,7 @@ $ npm install --save vue-echarts-v3
     import IEcharts from 'vue-echarts-v3';
     ```
 
-2. Import ECharts modules manually to reduce bundle size
+2. Import ECharts.js modules manually to reduce bundle size
 
     ``` js
     import Vue from 'vue';
@@ -80,7 +80,7 @@ $ npm install --save vue-echarts-v3
 
 ``` vue
 <template>
-  <div class="echart">
+  <div class="echarts">
     <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
     <button @click="doRandom">Random</button>
   </div>
@@ -134,7 +134,7 @@ $ npm install --save vue-echarts-v3
 </script>
 
 <style scoped>
-  .echart {
+  .echarts {
     width: 400px;
     height: 400px;
   }
