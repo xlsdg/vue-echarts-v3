@@ -32,7 +32,7 @@ const ECHARTS_EVENTS = [
 
 exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
   return {
-    name: 'IECharts',
+    name: 'IEcharts',
     props: {
       className: {
         type: String,
@@ -147,7 +147,7 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
           }
           instance.group = that.group;
           that.instance = instance;
-          that.$emit('ready', instance);
+          that.$emit('ready', instance, ECharts);
           that.$nextTick(function() {
             that.ifLoading(that.loading);
             that.update();
@@ -165,7 +165,7 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
               let name = e.toLowerCase();
               if (ECHARTS_EVENTS.indexOf(name) > -1) {
                 that.instance.on(name, function(event) {
-                  that.$emit(name, event);
+                  that.$emit(name, event, that.instance, ECharts);
                 });
               }
             }
@@ -173,7 +173,7 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
         } else {
           for (let i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
             that.instance.on(ECHARTS_EVENTS[i], function(event) {
-              that.$emit(ECHARTS_EVENTS[i], event);
+              that.$emit(ECHARTS_EVENTS[i], event, that.instance, ECharts);
             });
           }
         }
@@ -245,7 +245,7 @@ exports = module.exports = function wrapECharts(ECharts, ResizeEvent) {
           that.resize();
         }
       },
-      mergeOptions(opts) {
+      mergeOption(opts) {
         const that = this;
         if (that.instance) {
           that.instance.setOption(opts, false, that.lazyUpdate);

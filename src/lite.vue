@@ -10,8 +10,8 @@
   import ResizeEvent from 'element-resize-event';
   import Wrapper from './wrapper';
 
-  const IECharts = Wrapper(ECharts, ResizeEvent);
+  const IEcharts = Wrapper(ECharts, ResizeEvent);
   export default {
-    mixins: [IECharts]
+    mixins: [IEcharts]
   };
 </script>

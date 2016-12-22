@@ -1,11 +1,11 @@
 import Vue from 'vue';
-import Echart from './full';
+import IEcharts from './full';
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   components: {
-    Echart
+    IEcharts
   },
   data: () => ({
     loading: true,
@@ -38,8 +38,8 @@ new Vue({
     onReady(ins) {
       console.dir(ins);
     },
-    onClick(e) {
-      console.dir(e);
+    onClick(event, instance, echarts) {
+      console.log(arguments);
     }
   }
 });
