@@ -330,27 +330,6 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           that.instance.dispose();
           that.instance = null;
         }
-      },
-      connect(group) {
-        return ECharts.connect(group);
-      },
-      disConnect(group) {
-        return ECharts.disConnect(group);
-      },
-      dispose(target) {
-        return ECharts.dispose(target);
-      },
-      getInstanceByDom(target) {
-        return ECharts.getInstanceByDom(target);
-      },
-      registerMap(mapName, geoJson, specialAreas) {
-        return ECharts.registerMap(mapName, geoJson, specialAreas);
-      },
-      getMap(mapName) {
-        return ECharts.getMap(mapName);
-      },
-      registerTheme(themeName, theme) {
-        return ECharts.registerTheme(themeName, theme);
       }
     },
     beforeCreate() {
@@ -394,6 +373,27 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
     destroyed() {
       // const that = this;
       // console.log('destroyed');
+    },
+    connect(group) {
+      return ECharts.connect(group);
+    },
+    disConnect(group) {
+      return ECharts.disConnect(group);
+    },
+    dispose(target) {
+      return ECharts.dispose(target);
+    },
+    getInstanceByDom(target) {
+      return ECharts.getInstanceByDom(target);
+    },
+    registerMap(mapName, geoJson, specialAreas) {
+      return ECharts.registerMap(mapName, geoJson, specialAreas);
+    },
+    getMap(mapName) {
+      return ECharts.getMap(mapName);
+    },
+    registerTheme(themeName, theme) {
+      return ECharts.registerTheme(themeName, theme);
     }
   };
 };
