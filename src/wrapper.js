@@ -90,7 +90,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
     },
     data() {
       return {
-        resize: null,
+        insResize: null,
         instance: null,
         watches: {
           loading: null,
@@ -147,10 +147,10 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
         const that = this;
         if (that.resizable && (typeof Resize === 'function')) {
           // Resize(dom, that.resize);
-          that.resize = Resize({
+          that.insResize = Resize({
             strategy: 'scroll' // <- For ultra performance.
           });
-          that.resize.listenTo(dom, function(element) {
+          that.insResize.listenTo(dom, function(element) {
             that.resize();
           });
         }
@@ -316,9 +316,9 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
       },
       uninitResize() {
         const that = this;
-        if (that.resize && that.resize.uninstall) {
-          that.resize.uninstall(that.$el);
-          that.resize = null;
+        if (that.insResize && that.insResize.uninstall) {
+          that.insResize.uninstall(that.$el);
+          that.insResize = null;
         }
       },
       uninit() {

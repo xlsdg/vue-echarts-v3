@@ -13,7 +13,4 @@
 
   const IEcharts = Wrapper(ECharts, Resize);
   export default IEcharts;
-  // export default {
-  //   mixins: [IEcharts]
-  // };
 </script>
