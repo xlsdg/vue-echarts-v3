@@ -185,7 +185,7 @@ $ npm install --save vue-echarts-v3
 
 See more [ECharts' Option](http://echarts.baidu.com/option.html)
 
-## Methods
+## Instance Methods
 
 * `resize`
 * `update`
@@ -199,6 +199,10 @@ See more [ECharts' Option](http://echarts.baidu.com/option.html)
 * `getDataURL`
 * `getConnectedDataURL`
 * `clear`
+
+
+## Static Methods
+
 * `connect`
 * `disConnect`
 * `dispose`
@@ -208,7 +212,6 @@ See more [ECharts' Option](http://echarts.baidu.com/option.html)
 * `registerTheme`
 
 Learn more [ECharts' API](http://echarts.baidu.com/api.html)
-
 
 ## Development
 
