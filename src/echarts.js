@@ -1,3 +1,3 @@
-import IECharts from './lite';
+import IEcharts from './lite';
 
-export default IECharts;
+export default IEcharts;

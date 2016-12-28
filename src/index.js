@@ -1,3 +1,3 @@
-import IECharts from './full';
+import IEcharts from './full';
 
-export default IECharts;
+export default IEcharts;

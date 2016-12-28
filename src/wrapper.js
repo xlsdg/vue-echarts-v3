@@ -145,7 +145,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
     methods: {
       initResize(dom) {
         const that = this;
-        if (that.resizable) {
+        if (that.resizable && (typeof Resize === 'function')) {
           // Resize(dom, that.resize);
           that.resize = Resize({
             strategy: 'scroll' // <- For ultra performance.
