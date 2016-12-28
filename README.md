@@ -30,7 +30,7 @@ $ npm install --save vue-echarts-v3
 
     ``` js
     import Vue from 'vue';
-    import IEcharts from 'vue-echarts-v3/dist/js/lite';
+    import IEcharts from 'vue-echarts-v3/src/lite.js';
 
     // import 'echarts/lib/chart/line';
     import 'echarts/lib/chart/bar';

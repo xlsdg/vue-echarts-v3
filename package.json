@@ -6,7 +6,7 @@
   "author": "xLsDg <xlsdg@qq.com> (https://blog.xlsdg.org/)",
   "homepage": "https://github.com/xlsdg/vue-echarts-v3",
   "private": false,
-  "main": "dist/js/app.js",
+  "main": "dist/js/full.js",
   "license": "MIT",
   "files": [
     "dist/js",
@@ -34,7 +34,7 @@
     "echarts": "^3.3.2",
     "element-resize-detector": "^1.1.10",
     "element-resize-event": "^2.0.7",
-    "vue": "^2.1.6"
+    "vue": "^2.1.8"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
@@ -47,10 +47,10 @@
     "babel-runtime": "^6.20.0",
     "css-loader": "^0.26.1",
     "eslint": "^3.12.2",
+    "eslint-config-standard": "^6.2.1",
     "eslint-friendly-formatter": "^2.0.6",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-html": "^1.7.0",
-    "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -58,10 +58,10 @@
     "html-webpack-plugin": "^2.24.1",
     "vue-loader": "^10.0.2",
     "vue-style-loader": "^1.0.0",
-    "vue-template-compiler": "^2.1.6",
+    "vue-template-compiler": "^2.1.8",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2",
-    "webpack-merge": "^1.1.2"
+    "webpack-merge": "^2.0.0"
   },
   "engines": {
     "node": ">= 6.0.0"

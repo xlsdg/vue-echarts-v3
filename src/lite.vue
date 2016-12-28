@@ -6,10 +6,10 @@
 </style>
 
 <script>
-  import ECharts from 'echarts/lib/echarts';
+  import ECharts from 'echarts/lib/echarts.js';
   // import Resize from 'element-resize-event';
   import Resize from 'element-resize-detector';
-  import Wrapper from './wrapper';
+  import Wrapper from './wrapper.js';
 
   const IEcharts = Wrapper(ECharts, Resize);
   export default IEcharts;

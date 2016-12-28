@@ -3,8 +3,7 @@ var projectRoot = path.resolve(__dirname, '../');
 
 module.exports = {
   entry: {
-    app: './src/index.js',
-    lite: './src/echarts.js'
+    full: './src/full.js'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),

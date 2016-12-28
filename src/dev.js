@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import IEcharts from './full';
+import IEcharts from './full.vue';
 
 /* eslint-disable no-new */
 new Vue({
