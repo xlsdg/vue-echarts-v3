@@ -13,7 +13,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   output: {
     filename: 'js/[name].js',
     chunkFilename: 'js/[id].js',
-    library: 'IECharts',
+    library: 'IEcharts',
     libraryTarget: 'umd'
   },
   vue: {

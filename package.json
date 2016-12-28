@@ -9,7 +9,7 @@
   "main": "dist/js/app.js",
   "license": "MIT",
   "files": [
-    "dist",
+    "dist/js",
     "src"
   ],
   "keywords": [
