@@ -7,15 +7,18 @@
       .echart {
         width: 600px;
         height: 400px;
+        border: 1px solid #000;
       }
     </style>
   </head>
   <body>
     <div id="app">
-      <div class="echart">
-        <i-echarts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></i-echarts>
+      <div>
+        <button @click="doLoading">Random</button>
       </div>
-      <button @click="doLoading">Random</button>
+      <div class="echart" :style="style">
+        <i-echarts :option="bar" :loading="loading" :resizable="true" @ready="onReady" @click="onClick"></i-echarts>
+      </div>
     </div>
     <!-- built files will be auto injected -->
   </body>

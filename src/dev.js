@@ -9,6 +9,7 @@ new Vue({
   },
   data: () => ({
     loading: true,
+    style: {},
     bar: {
       title: {
         text: 'ECharts 入门示例'
@@ -34,6 +35,10 @@ new Vue({
       }
       that.loading = !that.loading;
       that.bar.series[0].data = data;
+      that.style = {
+        width: Math.floor(Math.random() * (1024 + 1 - 400) + 400) + 'px',
+        height: Math.floor(Math.random() * (768 + 1 - 200) + 200) + 'px'
+      };
     },
     onReady(ins) {
       console.dir(ins);
