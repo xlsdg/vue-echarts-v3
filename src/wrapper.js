@@ -42,10 +42,12 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
       style: {
         type: Object,
         required: false,
-        default: () => ({
-          width: '100%',
-          height: '100%'
-        })
+        default: function() {
+          return {
+            width: '100%',
+            height: '100%'
+          };
+        }
       },
       theme: {
         type: String,

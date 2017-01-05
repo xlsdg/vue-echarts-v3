@@ -14,7 +14,8 @@ var webpackConfig = merge(baseWebpackConfig, {
     filename: 'js/[name].js',
     chunkFilename: 'js/[id].js',
     library: 'IEcharts',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   vue: {
     loaders: utils.cssLoaders({
