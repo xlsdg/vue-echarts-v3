@@ -90,7 +90,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
         default: false
       }
     },
-    data() {
+    data: function() {
       return {
         insResize: null,
         instance: null,
@@ -104,19 +104,19 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
     computed: {
       width: {
         cache: false,
-        getter() {
+        getter: function() {
           return this.instance.getWidth();
         }
       },
       height: {
         cache: false,
-        getter() {
+        getter: function() {
           return this.instance.getHeight();
         }
       },
       isDisposed: {
         cache: false,
-        getter() {
+        getter: function() {
           return this.instance.isDisposed();
         }
       }
@@ -145,7 +145,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
       }
     },
     methods: {
-      initResize(dom) {
+      initResize: function(dom) {
         const that = this;
         if (that.resizable && (typeof Resize === 'function')) {
           // Resize(dom, that.resize);
@@ -157,7 +157,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           });
         }
       },
-      init() {
+      init: function() {
         const that = this;
         if (!that.instance) {
           const dom = that.$el;
@@ -177,7 +177,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           });
         }
       },
-      bind() {
+      bind: function() {
         const that = this;
         if (that._events) {
           for (let e in that._events) {
@@ -198,7 +198,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           }
         }
       },
-      unbind() {
+      unbind: function() {
         const that = this;
         if (that._events) {
           for (let e in that._events) {
@@ -215,7 +215,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           }
         }
       },
-      ifLoading(loading) {
+      ifLoading: function(loading) {
         const that = this;
         if (loading) {
           that.showLoading();
@@ -223,7 +223,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           that.hideLoading();
         }
       },
-      watch() {
+      watch: function() {
         const that = this;
         that.watches.loading = that.$watch('loading', function(loading) {
           that.ifLoading(loading);
@@ -237,7 +237,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           that.instance.group = group;
         });
       },
-      unwatch() {
+      unwatch: function() {
         const that = this;
         if (that.watches.loading) {
           that.watches.loading();
@@ -252,78 +252,78 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           that.watches.group = null;
         }
       },
-      resize(opts) {
+      resize: function(opts) {
         const that = this;
         if (that.instance) {
           that.instance.resize(opts);
         }
       },
-      update() {
+      update: function() {
         const that = this;
         if (that.instance) {
           that.instance.setOption(that.option, that.notMerge, that.lazyUpdate);
           that.resize();
         }
       },
-      mergeOption(opts) {
+      mergeOption: function(opts) {
         const that = this;
         if (that.instance) {
           that.instance.setOption(opts, false, that.lazyUpdate);
           that.resize();
         }
       },
-      dispatchAction(payload) {
+      dispatchAction: function(payload) {
         const that = this;
         if (that.instance) {
           that.instance.dispatchAction(payload);
         }
       },
-      convertToPixel(finder, value) {
+      convertToPixel: function(finder, value) {
         const that = this;
         return that.instance.convertToPixel(finder, value);
       },
-      convertFromPixel(finder, value) {
+      convertFromPixel: function(finder, value) {
         const that = this;
         return that.instance.convertFromPixel(finder, value);
       },
-      containPixel(finder, value) {
+      containPixel: function(finder, value) {
         const that = this;
         return that.instance.containPixel(finder, value);
       },
-      showLoading() {
+      showLoading: function() {
         const that = this;
         if (that.instance) {
           that.instance.showLoading('default', that.loadingOpts);
         }
       },
-      hideLoading() {
+      hideLoading: function() {
         const that = this;
         if (that.instance) {
           that.instance.hideLoading();
         }
       },
-      getDataURL(opts) {
+      getDataURL: function(opts) {
         const that = this;
         return that.instance.getDataURL(opts);
       },
-      getConnectedDataURL(opts) {
+      getConnectedDataURL: function(opts) {
         const that = this;
         return that.instance.getConnectedDataURL(opts);
       },
-      clear() {
+      clear: function() {
         const that = this;
         if (that.instance) {
           that.instance.clear();
         }
       },
-      uninitResize() {
+      uninitResize: function() {
         const that = this;
         if (that.insResize && that.insResize.uninstall) {
           that.insResize.uninstall(that.$el);
           that.insResize = null;
         }
       },
-      uninit() {
+      uninit: function() {
         const that = this;
         if (that.instance) {
           that.unbind();
@@ -334,67 +334,67 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
         }
       }
     },
-    beforeCreate() {
+    beforeCreate: function() {
       // const that = this;
       // console.log('beforeCreate');
     },
-    created() {
+    created: function() {
       // const that = this;
       // console.log('created');
     },
-    beforeMount() {
+    beforeMount: function() {
       // const that = this;
       // console.log('beforeMount');
     },
-    mounted() {
+    mounted: function() {
       const that = this;
       // console.log('mounted');
       that.init();
     },
-    beforeUpdate() {
+    beforeUpdate: function() {
       // const that = this;
       // console.log('beforeUpdate');
     },
-    updated() {
+    updated: function() {
       // const that = this;
       // console.log('updated');
     },
-    activated() {
+    activated: function() {
       // const that = this;
       // console.log('activated');
     },
-    deactivated() {
+    deactivated: function() {
       // const that = this;
       // console.log('deactivated');
     },
-    beforeDestroy() {
+    beforeDestroy: function() {
       const that = this;
       // console.log('beforeDestroy');
       that.uninit();
     },
-    destroyed() {
+    destroyed: function() {
       // const that = this;
       // console.log('destroyed');
     },
-    connect(group) {
+    connect: function(group) {
       return ECharts.connect(group);
     },
-    disConnect(group) {
+    disConnect: function(group) {
       return ECharts.disConnect(group);
     },
-    dispose(target) {
+    dispose: function(target) {
       return ECharts.dispose(target);
     },
-    getInstanceByDom(target) {
+    getInstanceByDom: function(target) {
       return ECharts.getInstanceByDom(target);
     },
-    registerMap(mapName, geoJson, specialAreas) {
+    registerMap: function(mapName, geoJson, specialAreas) {
       return ECharts.registerMap(mapName, geoJson, specialAreas);
     },
-    getMap(mapName) {
+    getMap: function(mapName) {
       return ECharts.getMap(mapName);
     },
-    registerTheme(themeName, theme) {
+    registerTheme: function(themeName, theme) {
       return ECharts.registerTheme(themeName, theme);
     }
   };
