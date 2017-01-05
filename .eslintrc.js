@@ -40,6 +40,7 @@ module.exports = {
     'object-curly-spacing': [2,'never',{}],
     'semi': [2,'always'],
     'space-before-function-paren': [2,'never'],
-    'max-len': [1,80,4,{'ignoreComments':true,'ignoreUrls':true}]
+    'max-len': [1,80,4,{'ignoreComments':true,'ignoreUrls':true}],
+    'no-inner-declarations': 0
   }
 }

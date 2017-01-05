@@ -1,4 +1,6 @@
-const ECHARTS_EVENTS = [
+'use strict';
+
+var ECHARTS_EVENTS = [
   'click',
   'dblclick',
   'mouseover',
@@ -42,7 +44,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
       style: {
         type: Object,
         required: false,
-        default: function() {
+        default: function _default() {
           return {
             width: '100%',
             height: '100%'
@@ -90,7 +92,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
         default: false
       }
     },
-    data: function() {
+    data: function data() {
       return {
         insResize: null,
         instance: null,
@@ -104,50 +106,50 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
     computed: {
       width: {
         cache: false,
-        getter: function() {
+        getter: function getter() {
           return this.instance.getWidth();
         }
       },
       height: {
         cache: false,
-        getter: function() {
+        getter: function getter() {
           return this.instance.getHeight();
         }
       },
       isDisposed: {
         cache: false,
-        getter: function() {
+        getter: function getter() {
           return this.instance.isDisposed();
         }
       }
     },
     watch: {
       loading: {
-        handler: function(loading) {
-          const that = this;
+        handler: function handler(loading) {
+          var that = this;
           that.ifLoading(loading);
         },
         deep: false
       },
       option: {
-        handler: function(option) {
-          const that = this;
+        handler: function handler(option) {
+          var that = this;
           that.instance.setOption(option, that.notMerge, that.lazyUpdate);
         },
         deep: true
       },
       group: {
-        handler: function(group) {
-          const that = this;
+        handler: function handler(group) {
+          var that = this;
           that.instance.group = group;
         },
         deep: false
       }
     },
     methods: {
-      initResize: function(dom) {
-        const that = this;
-        if (that.resizable && (typeof Resize === 'function')) {
+      initResize: function initResize(dom) {
+        var that = this;
+        if (that.resizable && typeof Resize === 'function') {
           // Resize(dom, that.resize);
           that.insResize = Resize({
             strategy: 'scroll' // <- For ultra performance.
@@ -157,11 +159,11 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           });
         }
       },
-      init: function() {
-        const that = this;
+      init: function init() {
+        var that = this;
         if (!that.instance) {
-          const dom = that.$el;
-          let instance = ECharts.getInstanceByDom(dom);
+          var dom = that.$el;
+          var instance = ECharts.getInstanceByDom(dom);
           if (!instance) {
             instance = ECharts.init(dom, that.theme, that.initOpts);
           }
@@ -177,54 +179,56 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           });
         }
       },
-      bind: function() {
-        const that = this;
+      bind: function bind() {
+        var that = this;
+        var _on = function _on(name) {
+          that.instance.on(name, function(event) {
+            that.$emit(name, event, that.instance, ECharts);
+          });
+        };
+
         if (that._events) {
-          for (let e in that._events) {
+          for (var e in that._events) {
             if (Object.prototype.hasOwnProperty.call(that._events, e)) {
-              let name = e.toLowerCase();
+              var name = e.toLowerCase();
               if (ECHARTS_EVENTS.indexOf(name) > -1) {
-                that.instance.on(name, function(event) {
-                  that.$emit(name, event, that.instance, ECharts);
-                });
+                _on(name);
               }
             }
           }
         } else {
-          for (let i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
-            that.instance.on(ECHARTS_EVENTS[i], function(event) {
-              that.$emit(ECHARTS_EVENTS[i], event, that.instance, ECharts);
-            });
+          for (var i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
+            _on(ECHARTS_EVENTS[i]);
           }
         }
       },
-      unbind: function() {
-        const that = this;
+      unbind: function unbind() {
+        var that = this;
         if (that._events) {
-          for (let e in that._events) {
+          for (var e in that._events) {
             if (Object.prototype.hasOwnProperty.call(that._events, e)) {
-              let name = e.toLowerCase();
+              var name = e.toLowerCase();
               if (ECHARTS_EVENTS.indexOf(name) > -1) {
                 that.instance.off(name);
               }
             }
           }
         } else {
-          for (let i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
+          for (var i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
             that.instance.off(ECHARTS_EVENTS[i]);
           }
         }
       },
-      ifLoading: function(loading) {
-        const that = this;
+      ifLoading: function ifLoading(loading) {
+        var that = this;
         if (loading) {
           that.showLoading();
         } else {
           that.hideLoading();
         }
       },
-      watch: function() {
-        const that = this;
+      watch: function watch() {
+        var that = this;
         that.watches.loading = that.$watch('loading', function(loading) {
           that.ifLoading(loading);
         });
@@ -237,8 +241,8 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           that.instance.group = group;
         });
       },
-      unwatch: function() {
-        const that = this;
+      unwatch: function unwatch() {
+        var that = this;
         if (that.watches.loading) {
           that.watches.loading();
           that.watches.loading = null;
@@ -252,79 +256,79 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
           that.watches.group = null;
         }
       },
-      resize: function(opts) {
-        const that = this;
+      resize: function resize(opts) {
+        var that = this;
         if (that.instance) {
           that.instance.resize(opts);
         }
       },
-      update: function() {
-        const that = this;
+      update: function update() {
+        var that = this;
         if (that.instance) {
           that.instance.setOption(that.option, that.notMerge, that.lazyUpdate);
           that.resize();
         }
       },
-      mergeOption: function(opts) {
-        const that = this;
+      mergeOption: function mergeOption(opts) {
+        var that = this;
         if (that.instance) {
           that.instance.setOption(opts, false, that.lazyUpdate);
           that.resize();
         }
       },
-      dispatchAction: function(payload) {
-        const that = this;
+      dispatchAction: function dispatchAction(payload) {
+        var that = this;
         if (that.instance) {
           that.instance.dispatchAction(payload);
         }
       },
-      convertToPixel: function(finder, value) {
-        const that = this;
+      convertToPixel: function convertToPixel(finder, value) {
+        var that = this;
         return that.instance.convertToPixel(finder, value);
       },
-      convertFromPixel: function(finder, value) {
-        const that = this;
+      convertFromPixel: function convertFromPixel(finder, value) {
+        var that = this;
         return that.instance.convertFromPixel(finder, value);
       },
-      containPixel: function(finder, value) {
-        const that = this;
+      containPixel: function containPixel(finder, value) {
+        var that = this;
         return that.instance.containPixel(finder, value);
       },
-      showLoading: function() {
-        const that = this;
+      showLoading: function showLoading() {
+        var that = this;
         if (that.instance) {
           that.instance.showLoading('default', that.loadingOpts);
         }
       },
-      hideLoading: function() {
-        const that = this;
+      hideLoading: function hideLoading() {
+        var that = this;
         if (that.instance) {
           that.instance.hideLoading();
         }
       },
-      getDataURL: function(opts) {
-        const that = this;
+      getDataURL: function getDataURL(opts) {
+        var that = this;
         return that.instance.getDataURL(opts);
       },
-      getConnectedDataURL: function(opts) {
-        const that = this;
+      getConnectedDataURL: function getConnectedDataURL(opts) {
+        var that = this;
         return that.instance.getConnectedDataURL(opts);
       },
-      clear: function() {
-        const that = this;
+      clear: function clear() {
+        var that = this;
         if (that.instance) {
           that.instance.clear();
         }
       },
-      uninitResize: function() {
-        const that = this;
+      uninitResize: function uninitResize() {
+        var that = this;
         if (that.insResize && that.insResize.uninstall) {
           that.insResize.uninstall(that.$el);
           that.insResize = null;
         }
       },
-      uninit: function() {
-        const that = this;
+      uninit: function uninit() {
+        var that = this;
         if (that.instance) {
           that.unbind();
           // that.unwatch();
@@ -334,67 +338,67 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
         }
       }
     },
-    beforeCreate: function() {
-      // const that = this;
+    beforeCreate: function beforeCreate() {
+      // var that = this;
       // console.log('beforeCreate');
     },
-    created: function() {
-      // const that = this;
+    created: function created() {
+      // var that = this;
       // console.log('created');
     },
-    beforeMount: function() {
-      // const that = this;
+    beforeMount: function beforeMount() {
+      // var that = this;
       // console.log('beforeMount');
     },
-    mounted: function() {
-      const that = this;
+    mounted: function mounted() {
+      var that = this;
       // console.log('mounted');
       that.init();
     },
-    beforeUpdate: function() {
-      // const that = this;
+    beforeUpdate: function beforeUpdate() {
+      // var that = this;
       // console.log('beforeUpdate');
     },
-    updated: function() {
-      // const that = this;
+    updated: function updated() {
+      // var that = this;
       // console.log('updated');
     },
-    activated: function() {
-      // const that = this;
+    activated: function activated() {
+      // var that = this;
       // console.log('activated');
     },
-    deactivated: function() {
-      // const that = this;
+    deactivated: function deactivated() {
+      // var that = this;
       // console.log('deactivated');
     },
-    beforeDestroy: function() {
-      const that = this;
+    beforeDestroy: function beforeDestroy() {
+      var that = this;
       // console.log('beforeDestroy');
       that.uninit();
     },
-    destroyed: function() {
-      // const that = this;
+    destroyed: function destroyed() {
+      // var that = this;
       // console.log('destroyed');
     },
-    connect: function(group) {
+    connect: function connect(group) {
       return ECharts.connect(group);
     },
-    disConnect: function(group) {
+    disConnect: function disConnect(group) {
       return ECharts.disConnect(group);
     },
-    dispose: function(target) {
+    dispose: function dispose(target) {
       return ECharts.dispose(target);
     },
-    getInstanceByDom: function(target) {
+    getInstanceByDom: function getInstanceByDom(target) {
       return ECharts.getInstanceByDom(target);
     },
-    registerMap: function(mapName, geoJson, specialAreas) {
+    registerMap: function registerMap(mapName, geoJson, specialAreas) {
       return ECharts.registerMap(mapName, geoJson, specialAreas);
     },
-    getMap: function(mapName) {
+    getMap: function getMap(mapName) {
       return ECharts.getMap(mapName);
     },
-    registerTheme: function(themeName, theme) {
+    registerTheme: function registerTheme(themeName, theme) {
       return ECharts.registerTheme(themeName, theme);
     }
   };
