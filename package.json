@@ -1,7 +1,7 @@
 {
   "name": "vue-echarts-v3",
   "title": "vue-echarts-v3",
-  "version": "0.1.24",
+  "version": "1.0.0",
   "description": "Vue.js(v2.x+) component wrap for ECharts.js(v3.x+)",
   "author": "xLsDg <xlsdg@qq.com> (https://blog.xlsdg.org/)",
   "homepage": "https://github.com/xlsdg/vue-echarts-v3",
@@ -31,9 +31,9 @@
     "url": "https://github.com/xlsdg/vue-echarts-v3/issues"
   },
   "dependencies": {
-    "echarts": "^3.3.2",
-    "element-resize-detector": "^1.1.10",
-    "element-resize-event": "^2.0.7",
+    "echarts": "latest",
+    "element-resize-detector": "latest",
+    "element-resize-event": "latest",
     "vue": "^2.1.8"
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
     "babel-register": "^6.18.0",
     "babel-runtime": "^6.20.0",
     "css-loader": "^0.26.1",
-    "eslint": "^3.12.2",
+    "eslint": "^3.13.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-friendly-formatter": "^2.0.7",
     "eslint-loader": "^1.6.1",
@@ -61,7 +61,7 @@
     "vue-template-compiler": "^2.1.8",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2",
-    "webpack-merge": "^2.0.0"
+    "webpack-merge": "^2.4.0"
   },
   "engines": {
     "node": ">= 6.0.0"
