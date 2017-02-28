@@ -107,19 +107,19 @@ exports = module.exports = function wrapECharts(ECharts, Resize, Debounce) {
     computed: {
       width: {
         cache: false,
-        getter: function getter() {
+        get: function get() {
           return this.instance.getWidth();
         }
       },
       height: {
         cache: false,
-        getter: function getter() {
+        get: function get() {
           return this.instance.getHeight();
         }
       },
       isDisposed: {
         cache: false,
-        getter: function getter() {
+        get: function get() {
           return this.instance.isDisposed();
         }
       }

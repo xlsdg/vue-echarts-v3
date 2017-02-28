@@ -1,34 +1,32 @@
 {
   "name": "vue-echarts-v3",
-  "title": "vue-echarts-v3",
   "version": "1.0.2",
   "description": "Vue.js(v2.x+) component wrap for ECharts.js(v3.x+)",
-  "author": "xLsDg <xlsdg@qq.com> (https://blog.xlsdg.org/)",
+  "keywords": [
+    "echarts",
+    "library",
+    "vue",
+    "vue-echarts",
+    "vue-echarts-v3"
+  ],
   "homepage": "https://github.com/xlsdg/vue-echarts-v3",
-  "private": false,
-  "main": "dist/js/full.js",
+  "bugs": {
+    "url": "https://github.com/xlsdg/vue-echarts-v3/issues"
+  },
   "license": "MIT",
+  "author": "xLsDg <xlsdg@qq.com> (https://blog.xlsdg.org/)",
   "files": [
     "dist/js",
     "src"
   ],
-  "keywords": [
-    "vue",
-    "echarts",
-    "vue-echarts",
-    "vue-echarts-v3",
-    "library"
-  ],
-  "scripts": {
-    "build": "webpack -p --config build/webpack.prod.conf.js",
-    "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.conf.js"
-  },
+  "main": "dist/js/full.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/xlsdg/vue-echarts-v3.git"
   },
-  "bugs": {
-    "url": "https://github.com/xlsdg/vue-echarts-v3/issues"
+  "scripts": {
+    "build": "webpack -p --config build/webpack.prod.conf.js",
+    "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.conf.js"
   },
   "dependencies": {
     "echarts": "latest",
@@ -66,5 +64,7 @@
   },
   "engines": {
     "node": ">= 6.0.0"
-  }
+  },
+  "private": false,
+  "title": "vue-echarts-v3"
 }
