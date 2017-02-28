@@ -34,7 +34,8 @@
     "echarts": "latest",
     "element-resize-detector": "latest",
     "element-resize-event": "latest",
-    "vue": "^2.1.8"
+    "lodash.debounce": "latest",
+    "vue": "latest"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

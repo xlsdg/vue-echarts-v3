@@ -32,7 +32,7 @@ var ECHARTS_EVENTS = [
   'brushselected'
 ];
 
-exports = module.exports = function wrapECharts(ECharts, Resize) {
+exports = module.exports = function wrapECharts(ECharts, Resize, Debounce) {
   return {
     name: 'IEcharts',
     props: {
@@ -94,6 +94,7 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
     },
     data: function data() {
       return {
+        fnResize: null,
         insResize: null,
         instance: null,
         watches: {
@@ -151,11 +152,16 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
         var that = this;
         if (that.resizable && typeof Resize === 'function') {
           // Resize(dom, that.resize);
-          that.insResize = Resize({
+          that.insResize = that.insResize || Resize({
             strategy: 'scroll' // <- For ultra performance.
           });
+          that.fnResize = that.fnResize || Debounce(that.resize, 250, {
+            'leading': true,
+            'trailing': true
+          });
           that.insResize.listenTo(dom, function(element) {
-            that.resize();
+            // that.resize();
+            that.fnResize();
           });
         }
       },
@@ -325,6 +331,10 @@ exports = module.exports = function wrapECharts(ECharts, Resize) {
         if (that.insResize && that.insResize.uninstall) {
           that.insResize.uninstall(that.$el);
           that.insResize = null;
+        }
+        if (that.fnResize && that.fnResize.cancel) {
+          that.fnResize.cancel();
+          that.fnResize = null;
         }
       },
       uninit: function uninit() {
