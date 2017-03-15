@@ -29,19 +29,20 @@ var webpackConfig = merge(baseWebpackConfig, {
       'process.env': "'production'"
     }),
     new webpack.optimize.UglifyJsPlugin({
-      beautify: false,
-      comments: false,
+      sourceMap: true,
+      // beautify: false,
+      // comments: false,
+      // mangle: {
+      //   except: [],
+      //   screw_ie8: false,
+      //   keep_fnames: true
+      // },
       compress: {
-        warnings: false,
-        drop_console: true,
-        collapse_vars: true,
-        reduce_vars: true,
-        screw_ie8: true
-      },
-      mangle: {
-        except: [],
-        screw_ie8: true,
-        keep_fnames: true
+        // drop_console: true,
+        // collapse_vars: true,
+        // reduce_vars: true,
+        // screw_ie8: false,
+        warnings: false
       }
     }),
     new webpack.optimize.OccurenceOrderPlugin(),

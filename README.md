@@ -5,9 +5,9 @@
 
 ## Feature
 
-1. 轻量, 高效, 按需绑定事件;
-2. 支持按需引入 ECharts.js 的图表和组件;
-3. 支持组件 resize 事件自动更新视图;
+1. Lightweight, efficient, on-demand binding events;
+2. Support for importing ECharts.js charts and components on demand;
+3. Support component resize event auto update view;
 
 
 ## Installation
@@ -99,15 +99,15 @@ $ npm install --save vue-echarts-v3
       loading: true,
       bar: {
         title: {
-          text: 'ECharts 入门示例'
+          text: 'ECharts Hello World'
         },
         tooltip: {},
         xAxis: {
-          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+          data: ['Shirt', 'Sweater', 'Chiffon Shirt', 'Pants', 'High Heels', 'Socks']
         },
         yAxis: {},
         series: [{
-          name: '销量',
+          name: 'Sales',
           type: 'bar',
           data: [5, 20, 36, 10, 10, 20]
         }]
