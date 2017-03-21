@@ -9,62 +9,145 @@
     "vue-echarts",
     "vue-echarts-v3"
   ],
-  "homepage": "https://github.com/xlsdg/vue-echarts-v3",
-  "bugs": {
-    "url": "https://github.com/xlsdg/vue-echarts-v3/issues"
-  },
-  "license": "MIT",
   "author": "xLsDg <xlsdg@qq.com> (https://blog.xlsdg.org/)",
+  "main": "dist/vue-echarts-v3.common.js",
+  "browser": "dist/vue-echarts-v3.js",
+  "unpkg": "dist/vue-echarts-v3.js",
   "files": [
-    "dist/js",
+    "dist/*.js",
     "src"
   ],
-  "main": "dist/js/full.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/xlsdg/vue-echarts-v3.git"
-  },
   "scripts": {
-    "build": "webpack -p --config build/webpack.prod.conf.js",
-    "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.conf.js"
+    "clean": "rimraf dist",
+    "build": "node build/build.js",
+    "build:dll": "webpack --progress --config build/webpack.config.dll.js",
+    "postinstall": "yon run build:dll",
+    "lint": "yon run lint:js && yon run lint:css",
+    "lint:js": "eslint --ext js --ext jsx --ext vue src test/**/*.spec.js test/*.js build",
+    "lint:js:fix": "yon run lint:js -- --fix",
+    "lint:css": "stylelint src/**/*.{vue,css}",
+    "lint:staged": "lint-staged",
+    "pretest": "yon run lint",
+    "test": "cross-env BABEL_ENV=test karma start test/karma.conf.js --single-run",
+    "dev": "webpack-dashboard -- webpack-dev-server --config build/webpack.config.dev.js --open",
+    "dev:coverage": "cross-env BABEL_ENV=test karma start test/karma.conf.js",
+    "prepublish": "yon run build"
   },
+  "lint-staged": {
+    "*.{vue,jsx,js}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{vue,css}": [
+      "stylefmt",
+      "stylelint"
+    ]
+  },
+  "pre-commit": "lint:staged",
   "dependencies": {
     "echarts": "latest",
     "element-resize-detector": "latest",
     "element-resize-event": "latest",
-    "lodash.debounce": "latest",
-    "vue": "latest"
+    "lodash.debounce": "latest"
   },
   "devDependencies": {
-    "babel-core": "^6.21.0",
-    "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.2.10",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-stage-2": "^6.18.0",
-    "babel-register": "^6.18.0",
-    "babel-runtime": "^6.20.0",
-    "css-loader": "^0.26.1",
-    "eslint": "^3.13.1",
-    "eslint-config-standard": "^6.2.1",
-    "eslint-friendly-formatter": "^2.0.7",
-    "eslint-loader": "^1.6.1",
-    "eslint-plugin-html": "^1.7.0",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "function-bind": "^1.1.0",
-    "html-webpack-plugin": "^2.26.0",
-    "vue-loader": "^10.0.2",
-    "vue-style-loader": "^1.0.0",
-    "vue-template-compiler": "^2.1.8",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2",
-    "webpack-merge": "^2.4.0"
+    "buble": "^0.15.2",
+    "clean-css": "^4.0.9",
+    "mkdirp": "^0.5.1",
+    "rollup": "^0.41.6",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-jsx": "^1.0.3",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-postcss": "^0.2.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-vue": "^2.3.1",
+    "add-asset-html-webpack-plugin": "^1.0.2",
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.2.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.2",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-istanbul": "^4.0.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-plugin-transform-vue-jsx": "^3.4.2",
+    "babel-preset-env": "^1.2.2",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "chai": "^3.5.0",
+    "chai-dom": "^1.4.3",
+    "cross-env": "^3.2.4",
+    "css-loader": "^0.27.3",
+    "eslint": "^3.18.0",
+    "eslint-config-vue": "^2.0.2",
+    "eslint-plugin-vue": "^2.0.1",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "html-webpack-plugin": "^2.28.0",
+    "karma": "^1.5.0",
+    "karma-chai-dom": "^1.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.3.0",
+    "karma-sinon-chai": "^1.2.4",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "^0.0.30",
+    "karma-webpack": "^2.0.3",
+    "lint-staged": "^3.4.0",
+    "mocha": "^3.2.0",
+    "mocha-css": "^1.0.1",
+    "postcss": "^5.2.16",
+    "postcss-cssnext": "^2.10.0",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^2.6.1",
+    "sinon": "next",
+    "sinon-chai": "^2.8.0",
+    "style-loader": "^0.15.0",
+    "stylefmt": "^5.3.0",
+    "stylelint": "^7.9.0",
+    "stylelint-config-standard": "^16.0.0",
+    "stylelint-processor-html": "^1.0.0",
+    "uppercamelcase": "^1.1.0",
+    "vue": "^2.2.4",
+    "vue-loader": "^11.1.4",
+    "vue-template-compiler": "^2.2.4",
+    "webpack": "^2.2.1",
+    "webpack-bundle-analyzer": "^2.3.1",
+    "webpack-dashboard": "^0.3.0",
+    "webpack-dev-server": "^2.4.2",
+    "webpack-merge": "^4.1.0",
+    "yarn-or-npm": "^2.0.3"
   },
-  "engines": {
-    "node": ">= 6.0.0"
+  "peerDependencies": {
+    "vue": "^2.2.4"
   },
-  "private": false,
-  "title": "vue-echarts-v3"
+  "dllPlugin": {
+    "name": "vuePluginTemplateDeps",
+    "include": [
+      "mocha/mocha.js",
+      "style-loader!css-loader!mocha-css",
+      "html-entities",
+      "vue/dist/vue.js",
+      "chai",
+      "core-js/library",
+      "url",
+      "sockjs-client",
+      "vue-style-loader/lib/addStylesClient.js",
+      "events",
+      "ansi-html",
+      "style-loader/addStyles.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xlsdg/vue-echarts-v3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xlsdg/vue-echarts-v3/issues"
+  },
+  "homepage": "https://github.com/xlsdg/vue-echarts-v3#readme",
+  "license": {
+    "type": "MIT",
+    "url": "http://www.opensource.org/licenses/mit-license.php"
+  }
 }

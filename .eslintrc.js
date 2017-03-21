@@ -4,16 +4,7 @@ module.exports = {
   parserOptions: {
     sourceType: 'module'
   },
-  // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-  extends: 'standard',
-  // required to lint *.vue files
-  plugins: [
-    'html'
-  ],
-  'globals': {
-    window: true,
-    document: true
-  },
+  extends: 'vue',
   // add your custom rules here
   'rules': {
     // allow paren-less arrow functions
@@ -42,5 +33,9 @@ module.exports = {
     'space-before-function-paren': [2,'never'],
     'max-len': [1,80,4,{'ignoreComments':true,'ignoreUrls':true}],
     'no-inner-declarations': 0
+  },
+  globals: {
+    requestAnimationFrame: true,
+    performance: true
   }
 }

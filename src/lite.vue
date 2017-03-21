@@ -12,6 +12,7 @@
   import Resize from 'element-resize-detector';
   import Wrapper from './wrapper.js';
 
-  const IEcharts = Wrapper(ECharts, Resize, Debounce);
-  export default IEcharts;
+  export default {
+    mixins: [Wrapper(ECharts, Resize, Debounce)]
+  };
 </script>
