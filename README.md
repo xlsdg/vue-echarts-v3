@@ -1,7 +1,4 @@
-# vue-echarts-v3
-
-[![npm](https://img.shields.io/npm/v/vue-echarts-v3.svg)](https://www.npmjs.com/package/vue-echarts-v3)
-[![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
+# vue-echarts-v3 [![npm](https://img.shields.io/npm/v/vue-echarts-v3.svg)](https://www.npmjs.com/package/vue-echarts-v3) [![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
 
 > [Vue.js](https://vuejs.org/) `v2.x+` component wrap for [ECharts.js](http://echarts.baidu.com/) `v3.x+`
 
