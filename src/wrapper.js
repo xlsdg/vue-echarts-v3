@@ -348,48 +348,48 @@ exports = module.exports = function wrapECharts(ECharts, Resize, Debounce) {
         }
       }
     },
-    beforeCreate: function beforeCreate() {
+    // beforeCreate: function beforeCreate() {
       // var that = this;
       // console.log('beforeCreate');
-    },
-    created: function created() {
+    // },
+    // created: function created() {
       // var that = this;
       // console.log('created');
-    },
-    beforeMount: function beforeMount() {
+    // },
+    // beforeMount: function beforeMount() {
       // var that = this;
       // console.log('beforeMount');
-    },
+    // },
     mounted: function mounted() {
       var that = this;
       // console.log('mounted');
       that.init();
     },
-    beforeUpdate: function beforeUpdate() {
+    // beforeUpdate: function beforeUpdate() {
       // var that = this;
       // console.log('beforeUpdate');
-    },
-    updated: function updated() {
+    // },
+    // updated: function updated() {
       // var that = this;
       // console.log('updated');
-    },
-    activated: function activated() {
+    // },
+    // activated: function activated() {
       // var that = this;
       // console.log('activated');
-    },
-    deactivated: function deactivated() {
+    // },
+    // deactivated: function deactivated() {
       // var that = this;
       // console.log('deactivated');
-    },
+    // },
     beforeDestroy: function beforeDestroy() {
       var that = this;
       // console.log('beforeDestroy');
       that.uninit();
     },
-    destroyed: function destroyed() {
+    // destroyed: function destroyed() {
       // var that = this;
       // console.log('destroyed');
-    },
+    // },
     connect: function connect(group) {
       return ECharts.connect(group);
     },
