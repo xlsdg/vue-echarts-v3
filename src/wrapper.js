@@ -41,16 +41,6 @@ exports = module.exports = function wrapECharts(ECharts, Resize, Debounce) {
         required: false,
         default: 'vue-echarts'
       },
-      style: {
-        type: Object,
-        required: false,
-        default: function _default() {
-          return {
-            width: '100%',
-            height: '100%'
-          };
-        }
-      },
       theme: {
         type: String,
         required: false

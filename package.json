@@ -26,7 +26,7 @@
   },
   "scripts": {
     "build": "webpack -p --config build/webpack.prod.conf.js",
-    "dev": "webpack-dev-server --inline --hot --config build/webpack.dev.conf.js"
+    "start": "webpack-dev-server --inline --hot --config build/webpack.dev.conf.js"
   },
   "dependencies": {
     "echarts": "latest",

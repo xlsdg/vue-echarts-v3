@@ -145,11 +145,7 @@ $ npm install --save vue-echarts-v3
 
 * `className`
 
-  Optional; `vue-echarts` by defualt.
-
-* `style`
-
-  Optional; `{ width: '100%', height: '100%' }` by defualt.
+  Optional; `vue-echarts` by defualt. Css style is `{ width: 100%; height: 100%; }` by defualt.
 
 * `initOpts` & `theme`
 
@@ -217,7 +213,7 @@ Learn more [ECharts' API](http://echarts.baidu.com/api.html)
 
 ``` bash
 $ git clone https://github.com/xlsdg/vue-echarts-v3.git vue-echarts
-$ cd vue-echarts && npm i && npm run dev
+$ cd vue-echarts && npm i && npm run start
 ```
 
 Then open `http://localhost:8080/` to see the demo.

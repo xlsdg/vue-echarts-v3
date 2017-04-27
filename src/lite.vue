@@ -1,8 +1,12 @@
 <template>
-  <div :class="className" :style="style"></div>
+  <div :class="className"></div>
 </template>
 
 <style scoped>
+  .vue-echarts {
+    width: 100%;
+    height: 100%;
+  }
 </style>
 
 <script>
