@@ -17,12 +17,6 @@ var webpackConfig = merge(baseWebpackConfig, {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
-  vue: {
-    loaders: utils.cssLoaders({
-      sourceMap: true,
-      extract: true
-    })
-  },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
@@ -30,8 +24,8 @@ var webpackConfig = merge(baseWebpackConfig, {
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
-      // beautify: false,
-      // comments: false,
+      beautify: false,
+      comments: false,
       // mangle: {
       //   except: [],
       //   screw_ie8: false,
@@ -45,9 +39,10 @@ var webpackConfig = merge(baseWebpackConfig, {
         warnings: false
       }
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
     // extract css into its own file
-    new ExtractTextPlugin('css/[name].css')
+    new ExtractTextPlugin({
+      filename: 'css/[name].css'
+    })
   ]
 });
 

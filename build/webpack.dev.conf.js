@@ -22,9 +22,8 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
         'process.env': "'development'"
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
