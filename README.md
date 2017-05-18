@@ -145,7 +145,7 @@ $ npm install --save vue-echarts-v3
 
 * `className`
 
-  Optional; `vue-echarts` by defualt. Css style is `{ width: 100%; height: 100%; }` by defualt.
+  Optional; `vue-echarts` by default. CSS style is `{ width: 100%; height: 100%; }` by default.
 
 * `initOpts` & `theme`
 
@@ -161,15 +161,15 @@ $ npm install --save vue-echarts-v3
 
 * `notMerge`
 
-  Optional; `false` by defualt. [Detail](http://echarts.baidu.com/api.html#echartsInstance.setOption)
+  Optional; `false` by default. [Detail](http://echarts.baidu.com/api.html#echartsInstance.setOption)
 
 * `lazyUpdate`
 
-  Optional; `false` by defualt. [Detail](http://echarts.baidu.com/api.html#echartsInstance.setOption)
+  Optional; `false` by default. [Detail](http://echarts.baidu.com/api.html#echartsInstance.setOption)
 
 * `loading` **[reactive]**
 
-  Optional; `false` by defualt. Modifying this property will trigger ECharts' `showLoading` or `hideLoading` method.
+  Optional; `false` by default. Modifying this property will trigger ECharts' `showLoading` or `hideLoading` method.
 
 * `loadingOpts`
 
@@ -177,7 +177,7 @@ $ npm install --save vue-echarts-v3
 
 * `resizable`
 
-  Optional; `false` by defualt.
+  Optional; `false` by default.
 
 See more [ECharts' Option](http://echarts.baidu.com/option.html)
 
