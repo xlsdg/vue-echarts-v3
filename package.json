@@ -29,10 +29,10 @@
     "start": "webpack-dev-server --inline --hot --config build/webpack.dev.conf.js"
   },
   "dependencies": {
-    "echarts": "^3.5.4",
-    "element-resize-detector": "^1.1.12",
-    "element-resize-event": "^2.0.9",
-    "lodash.debounce": "^4.0.8",
+    "echarts": "latest",
+    "element-resize-detector": "latest",
+    "element-resize-event": "latest",
+    "lodash.debounce": "latest",
     "vue": "^2.3.2"
   },
   "devDependencies": {
