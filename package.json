@@ -16,7 +16,8 @@
   "license": "MIT",
   "author": "xLsDg <xlsdg@qq.com> (https://blog.xlsdg.org/)",
   "files": [
-    "lib"
+    "dist",
+    "src"
   ],
   "main": "dist/vue-echarts.js",
   "repository": {
@@ -34,10 +35,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-helper-vue-jsx-merge-props": "^2.0.2",
     "babel-loader": "^7.1.2",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-vue-jsx": "^3.5.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.7",
@@ -46,7 +44,8 @@
     "webpack": "^3.8.1"
   },
   "peerDependencies": {
-    "echarts": "*"
+    "echarts": "*",
+    "vue": "*"
   },
   "title": "vue-echarts-v3"
 }

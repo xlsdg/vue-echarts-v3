@@ -8,8 +8,8 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'vue-echarts.js',
     library: undefined,
-    libraryTarget: 'umd',
-    umdNamedDefine: true
+    libraryTarget: 'umd'
+    // umdNamedDefine: true
   },
   externals: {
     vue: {
