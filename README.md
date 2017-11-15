@@ -143,9 +143,9 @@ $ npm install --save vue-echarts-v3
 
 ## Properties
 
-* `className`
+* `styles`
 
-  Optional; `vue-echarts` by default. CSS style is `{ width: 100%; height: 100%; }` by default.
+  Optional; CSS style is `{ width: 100%; height: 100%; }` by default.
 
 * `initOpts` & `theme`
 
