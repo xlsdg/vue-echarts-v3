@@ -56,14 +56,6 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.vue$/,
-      use: {
-        loader: 'vue-loader',
-        options: {
-          extractCSS: false
-        }
-      }
-    }, {
       test: /\.jsx?$/,
       exclude: /node_modules/,
       use: {
