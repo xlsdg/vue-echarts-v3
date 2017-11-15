@@ -209,14 +209,6 @@ See more [ECharts' Option](http://echarts.baidu.com/option.html)
 
 Learn more [ECharts' API](http://echarts.baidu.com/api.html)
 
-## Development
-
-``` bash
-$ git clone https://github.com/xlsdg/vue-echarts-v3.git vue-echarts
-$ cd vue-echarts && npm i && npm run start
-```
-
-Then open `http://localhost:8080/` to see the demo.
 
 # License
 
