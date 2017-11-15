@@ -3,6 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: './src/full.js',
+  // devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'vue-echarts.js',
@@ -31,18 +32,18 @@ module.exports = {
         NODE_ENV: JSON.stringify('production')
       }
     }),
-    // new webpack.SourceMapDevToolPlugin({
-    //   filename: '[file].map'
-    // }),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map'
+    }),
     new webpack.optimize.UglifyJsPlugin({
-      // sourceMap: true,
+      sourceMap: true,
       compress: {
         warnings: false
       }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
     })
-    // new webpack.LoaderOptionsPlugin({
-    //   minimize: true
-    // })
   ],
   resolve: {
     // extensions: ['.js', '.vue']
