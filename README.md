@@ -13,7 +13,7 @@
 ## Installation
 
 ``` bash
-$ npm install --save vue-echarts-v3
+$ npm install --save echarts vue-echarts-v3
 ```
 
 
