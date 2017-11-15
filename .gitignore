@@ -1,6 +1,6 @@
 .DS_Store
 node_modules/
+#entry/
 npm-debug.log
-.vscode/
 .idea/
-dist/css/
+bower_components/

@@ -23,14 +23,14 @@ $ npm install --save vue-echarts-v3
 
     ``` js
     import Vue from 'vue';
-    import IEcharts from 'vue-echarts-v3/src/full.vue';
+    import IEcharts from 'vue-echarts-v3/src/full.js';
     ```
 
 2. Import ECharts.js modules manually to reduce bundle size
 
     ``` js
     import Vue from 'vue';
-    import IEcharts from 'vue-echarts-v3/src/lite.vue';
+    import IEcharts from 'vue-echarts-v3/src/lite.js';
 
     // import 'echarts/lib/chart/line';
     import 'echarts/lib/chart/bar';
@@ -87,7 +87,7 @@ $ npm install --save vue-echarts-v3
 </template>
 
 <script type="text/babel">
-  import IEcharts from 'vue-echarts-v3/src/full.vue';
+  import IEcharts from 'vue-echarts-v3/src/full.js';
   export default {
     name: 'view',
     components: {
