@@ -45,12 +45,6 @@ module.exports = {
       minimize: true
     })
   ],
-  resolve: {
-    // extensions: ['.js', '.vue']
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    }
-  },
   performance: {
     hints: false
   },
