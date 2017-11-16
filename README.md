@@ -208,6 +208,10 @@ See more [ECharts' Option](http://echarts.baidu.com/option.html)
 Learn more [ECharts' API](http://echarts.baidu.com/api.html)
 
 
+## Demo
+
+[vue-echarts-v3-demo](https://github.com/xlsdg/vue-echarts-v3-demo)
+
 # License
 
 MIT
