@@ -19,6 +19,35 @@ $ npm install --save echarts vue-echarts-v3
 
 ## Usage
 
+0. Change webpack config
+
+    For webpack 1.x:
+
+    ```diff
+          {
+            test: /\.js$/,
+            loader: 'babel',
+            include: [
+    -          path.join(prjRoot, 'src')
+    +          path.join(prjRoot, 'src'),
+    +          path.join(prjRoot, 'node_modules/vue-echarts-v3/src')
+            ],
+    -        exclude: /node_modules/
+    +        exclude: /node_modules(?![\\/]vue-echarts-v3[\\/]src[\\/])/
+          },
+    ```
+
+    For webpack 2.x+:
+
+    ```diff
+          {
+            test: /\.js$/,
+            loader: 'babel-loader',
+    -       include: [resolve('src'), resolve('test')]
+    +       include: [resolve('src'), resolve('test'), resolve('node_modules/vue-echarts-v3/src')]
+          }
+    ```
+
 1. Import all charts and components
 
     ``` js
