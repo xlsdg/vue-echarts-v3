@@ -12,7 +12,7 @@
 
 ## Installation
 
-``` bash
+```bash
 $ npm install --save echarts vue-echarts-v3
 ```
 
@@ -50,13 +50,13 @@ $ npm install --save echarts vue-echarts-v3
 
 1. Import all charts and components
 
-    ``` js
+    ```javascript
     import IEcharts from 'vue-echarts-v3/src/full.js';
     ```
 
 2. Import ECharts.js modules manually to reduce bundle size
 
-    ``` js
+    ```javascript
     import IEcharts from 'vue-echarts-v3/src/lite.js';
 
     // import 'echarts/lib/chart/line';
@@ -105,7 +105,7 @@ $ npm install --save echarts vue-echarts-v3
 
 ## Using the component
 
-``` vue
+```vue
 <template>
   <div class="echarts">
     <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
