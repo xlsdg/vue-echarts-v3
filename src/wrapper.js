@@ -145,7 +145,7 @@ function wrapECharts(ECharts) {
     methods: {
       initResize: function(dom) {
         const that = this;
-        if (that.resizable && typeof Resize === 'function') {
+        if (that.resizable && (typeof Resize === 'function')) {
           // Resize(dom, that.resize);
           that.insResize = that.insResize || Resize({
             strategy: 'scroll' // <- For ultra performance.
@@ -155,8 +155,14 @@ function wrapECharts(ECharts) {
             'trailing': true
           });
           that.insResize.listenTo(dom, function(element) {
+            const width = element.offsetWidth;
+            const height = element.offsetHeight;
             // that.resize();
-            that.fnResize();
+            that.fnResize({
+              width,
+              height,
+              silent: false
+            });
           });
         }
       },
@@ -260,6 +266,9 @@ function wrapECharts(ECharts) {
       resize: function(opts) {
         const that = this;
         if (that.instance) {
+          const width = opts && opts.width;
+          const height = opts && opts.height;
+          that.$emit('resize', width, height);
           that.instance.resize(opts);
         }
       },
