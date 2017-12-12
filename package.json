@@ -29,9 +29,7 @@
   },
   "dependencies": {
     "element-resize-detector": "latest",
-    "element-resize-event": "latest",
-    "lodash.debounce": "latest",
-    "lodash.isequal": "latest"
+    "lodash.debounce": "latest"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

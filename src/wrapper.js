@@ -1,5 +1,4 @@
 import Debounce from 'lodash.debounce';
-// import Resize from 'element-resize-event';
 import Resize from 'element-resize-detector';
 
 const ECHARTS_EVENTS = [
@@ -145,8 +144,7 @@ function wrapECharts(ECharts) {
     methods: {
       initResize: function(dom) {
         const that = this;
-        if (that.resizable && (typeof Resize === 'function')) {
-          // Resize(dom, that.resize);
+        if (that.resizable) {
           that.insResize = that.insResize || Resize({
             strategy: 'scroll' // <- For ultra performance.
           });
@@ -157,7 +155,6 @@ function wrapECharts(ECharts) {
           that.insResize.listenTo(dom, function(element) {
             const width = element.offsetWidth;
             const height = element.offsetHeight;
-            // that.resize();
             that.fnResize({
               width,
               height,
