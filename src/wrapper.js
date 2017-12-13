@@ -46,7 +46,7 @@ function wrapECharts(ECharts) {
         })
       },
       theme: {
-        type: String,
+        type: [String, Object],
         required: false
       },
       group: {
