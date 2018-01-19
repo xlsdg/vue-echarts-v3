@@ -1,6 +1,6 @@
 {
   "name": "vue-echarts-v3",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Vue.js component wrap for ECharts.js(v3.x+)",
   "keywords": [
     "echarts",
