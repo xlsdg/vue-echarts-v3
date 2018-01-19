@@ -2,6 +2,7 @@ import * as ECharts from 'echarts/lib/echarts';
 import Wrapper from './wrapper.js';
 
 const IEcharts = Wrapper(ECharts);
+IEcharts.__echarts__ = ECharts;
 export default IEcharts;
 
 // const install = function(Vue, opts) {

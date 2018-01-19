@@ -1,0 +1,21 @@
+{
+  "plugins": [
+    "lodash"
+  ],
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": [
+            "> 1%",
+            "IE >= 6",
+            "last 2 versions"
+          ]
+        }
+      }
+    ]
+  ],
+  "comments": false
+}

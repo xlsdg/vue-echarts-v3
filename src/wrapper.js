@@ -1,4 +1,4 @@
-import Debounce from 'lodash.debounce';
+import _ from 'lodash';
 import Resize from 'element-resize-detector';
 
 const ECHARTS_EVENTS = [
@@ -148,9 +148,9 @@ function wrapECharts(ECharts) {
           that.insResize = that.insResize || Resize({
             strategy: 'scroll' // <- For ultra performance.
           });
-          that.fnResize = that.fnResize || Debounce(that.resize, 250, {
-            'leading': true,
-            'trailing': true
+          that.fnResize = that.fnResize || _.throttle(that.resize, 250, {
+            leading: true,
+            trailing: true
           });
           that.insResize.listenTo(dom, function(element) {
             const width = element.offsetWidth;
