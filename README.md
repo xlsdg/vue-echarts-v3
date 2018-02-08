@@ -108,7 +108,12 @@ $ npm install --save echarts vue-echarts-v3
 ```vue
 <template>
   <div class="echarts">
-    <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
+    <IEcharts
+      :option="bar"
+      :loading="loading"
+      @ready="onReady"
+      @click="onClick"
+    />
     <button @click="doRandom">Random</button>
   </div>
 </template>
@@ -150,10 +155,10 @@ $ npm install --save echarts vue-echarts-v3
         that.loading = !that.loading;
         that.bar.series[0].data = data;
       },
-      onReady(instance) {
-        console.log(instance);
+      onReady(instance, ECharts) {
+        console.log(instance, ECharts);
       },
-      onClick(event, instance, echarts) {
+      onClick(event, instance, ECharts) {
         console.log(arguments);
       }
     }
