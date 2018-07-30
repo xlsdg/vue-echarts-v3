@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import Resize from 'element-resize-detector';
 
 const ECHARTS_EVENTS = [
@@ -32,6 +31,38 @@ const ECHARTS_EVENTS = [
   'brush',
   'brushselected'
 ];
+
+function throttle(func, wait) {
+  // this is analogue of lodash {leading: true, trailing: true} options
+  // https://stackoverflow.com/a/27078401/450103
+  let context, args, result;
+  let timeout = null;
+  let previous = 0;
+  const later = function() {
+    previous = Date.now();
+    timeout = null;
+    result = func.apply(context, args);
+    if (!timeout) context = args = null;
+  };
+  return function() {
+    const now = Date.now();
+    const remaining = wait - (now - previous);
+    context = this;
+    args = arguments;
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      previous = now;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    } else if (!timeout) {
+      timeout = setTimeout(later, remaining);
+    }
+    return result;
+  };
+};
 
 function wrapECharts(ECharts) {
   return {
@@ -81,7 +112,7 @@ function wrapECharts(ECharts) {
         required: false
       },
       resizable: {
-        type: Boolean,
+        type: [Boolean, Number],
         required: false,
         default: false
       }
@@ -148,10 +179,8 @@ function wrapECharts(ECharts) {
           that.insResize = that.insResize || Resize({
             strategy: 'scroll' // <- For ultra performance.
           });
-          that.fnResize = that.fnResize || _.throttle(that.resize, 250, {
-            leading: true,
-            trailing: true
-          });
+          const wait = that.resizable === true ? 250 : that.resizable;
+          that.fnResize = that.fnResize || throttle(that.resize, wait);
           that.insResize.listenTo(dom, function(element) {
             const width = element.offsetWidth;
             const height = element.offsetHeight;

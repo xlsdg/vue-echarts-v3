@@ -28,15 +28,12 @@
     "build": "webpack --progress --hide-modules"
   },
   "dependencies": {
-    "element-resize-detector": "latest",
-    "lodash": "latest"
+    "element-resize-detector": "latest"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
-    "babel-plugin-lodash": "^3.3.2",
     "babel-preset-env": "^1.7.0",
-    "lodash-webpack-plugin": "^0.11.5",
     "webpack": "^3.10.0"
   },
   "peerDependencies": {
