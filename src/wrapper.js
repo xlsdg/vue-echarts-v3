@@ -44,7 +44,7 @@ function throttle(func, wait) {
     result = func.apply(context, args);
     if (!timeout) context = args = null;
   };
-  return function() {
+  const throttled = function() {
     const now = Date.now();
     const remaining = wait - (now - previous);
     context = this;
@@ -62,6 +62,12 @@ function throttle(func, wait) {
     }
     return result;
   };
+  throttled.cancel = function() {
+    if (timeout) clearTimeout(timeout);
+    previous = 0;
+    context = args = result = timeout = null;
+  }
+  return throttled
 };
 
 function wrapECharts(ECharts) {
