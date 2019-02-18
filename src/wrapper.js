@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import throttle from 'lodash.throttle';
 import Resize from 'element-resize-detector';
 
 const ECHARTS_EVENTS = [
@@ -148,7 +148,7 @@ function wrapECharts(ECharts) {
           that.insResize = that.insResize || Resize({
             strategy: 'scroll' // <- For ultra performance.
           });
-          that.fnResize = that.fnResize || _.throttle(that.resize, 250, {
+          that.fnResize = that.fnResize || throttle(that.resize, 250, {
             leading: true,
             trailing: true
           });

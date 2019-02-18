@@ -1,6 +1,5 @@
 var path = require('path')
 var webpack = require('webpack');
-var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = {
   entry: './src/full.js',
@@ -32,10 +31,6 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       }
-    }),
-    new LodashModuleReplacementPlugin({
-      collections: true,
-      paths: true
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
