@@ -53,5 +53,5 @@
   },
   "source": "src/full.js",
   "unpkg": "dist/VueECharts.min.js",
-  "version": "1.0.19"
+  "version": "2.0.0"
 }
