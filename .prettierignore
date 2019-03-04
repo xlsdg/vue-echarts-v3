@@ -1,0 +1,17 @@
+**/*.md
+**/*.svg
+**/*.ejs
+**/*.html
+**/*.eot
+**/*.ttf
+**/*.woff
+
+# dependencies
+/node_modules
+/package.json
+
+# production
+/dist
+
+# misc
+.DS_Store

@@ -1,7 +1,31 @@
 {
-  "name": "vue-echarts-v3",
-  "version": "1.0.19",
+  "author": "xLsDg <xlsdg@qq.com> (https://xlsdg.org/)",
+  "browser": "dist/VueECharts.js",
+  "bugs": {
+    "url": "https://github.com/xlsdg/vue-echarts-v3/issues"
+  },
+  "dependencies": {
+    "element-resize-detector": "latest",
+    "lodash-es": "latest"
+  },
   "description": "Vue.js component wrap for ECharts.js(v3.x+)",
+  "devDependencies": {
+    "bili": "^3.4.2",
+    "prettier": "^1.16.4",
+    "rollup-plugin-prettier": "^0.6.0",
+    "rollup-plugin-vue": "^4.7.2",
+    "vue-template-compiler": "^2.6.8"
+  },
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "homepage": "https://github.com/xlsdg/vue-echarts-v3",
+  "jsdelivr": "dist/VueECharts.min.js",
   "keywords": [
     "echarts",
     "library",
@@ -9,39 +33,25 @@
     "vue-echarts",
     "vue-echarts-v3"
   ],
-  "homepage": "https://github.com/xlsdg/vue-echarts-v3",
-  "bugs": {
-    "url": "https://github.com/xlsdg/vue-echarts-v3/issues"
-  },
   "license": "MIT",
-  "author": "xLsDg <xlsdg@qq.com> (https://blog.xlsdg.org/)",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "main": "dist/vue-echarts.js",
+  "main": "dist/VueECharts.cjs.js",
+  "module": "dist/VueECharts.es.js",
+  "name": "vue-echarts-v3",
+  "peerDependencies": {
+    "echarts": "*",
+    "vue": "*"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/xlsdg/vue-echarts-v3.git"
   },
   "scripts": {
-    "build": "webpack --progress --hide-modules"
+    "build": "bili",
+    "release:major": "npm version major && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:patch": "npm version patch && npm publish"
   },
-  "dependencies": {
-    "element-resize-detector": "latest",
-    "lodash": "latest"
-  },
-  "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-lodash": "^3.3.2",
-    "babel-preset-env": "^1.7.0",
-    "lodash-webpack-plugin": "^0.11.5",
-    "webpack": "^3.10.0"
-  },
-  "peerDependencies": {
-    "echarts": "*",
-    "vue": "*"
-  },
-  "title": "vue-echarts-v3"
+  "source": "src/full.js",
+  "unpkg": "dist/VueECharts.min.js",
+  "version": "1.0.19"
 }

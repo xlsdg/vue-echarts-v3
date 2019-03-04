@@ -1,0 +1,49 @@
+{
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "jsxBracketSameLine": false,
+  "jsxSingleQuote": false,
+  "overrides": [
+    {
+      "files": "src/**/*.{ts,tsx}",
+      "options": {
+        "parser": "typescript"
+      }
+    },
+    {
+      "files": "src/**/*.{js,jsx}",
+      "options": {
+        "parser": "babylon"
+      }
+    },
+    {
+      "files": "src/**/*.{less,scss,css}",
+      "options": {
+        "parser": "css"
+      }
+    },
+    {
+      "files": "src/**/*.json",
+      "options": {
+        "parser": "json"
+      }
+    },
+    {
+      "files": ".prettierrc",
+      "options": {
+        "parser": "json"
+      }
+    }
+  ],
+  "printWidth": 120,
+  "proseWrap": "preserve",
+  "requirePragma": false,
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "useTabs": false
+}

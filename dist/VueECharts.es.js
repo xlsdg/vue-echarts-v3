@@ -1,7 +1,8 @@
 import _throttle from 'lodash-es/throttle';
 import Resize from 'element-resize-detector';
+import * as ECharts from 'echarts';
 
-const ECHARTS_EVENTS = [
+var ECHARTS_EVENTS = [
   'click',
   'dblclick',
   'mouseover',
@@ -30,63 +31,65 @@ const ECHARTS_EVENTS = [
   'mapunselected',
   'axisareaselected',
   'brush',
-  'brushselected'
+  'brushselected',
 ];
 
-function wrapECharts(ECharts) {
+function wrapECharts(ECharts$$1) {
   return {
     name: 'IEcharts',
     props: {
       styles: {
         type: Object,
         required: false,
-        default: () => ({
-          width: '100%',
-          height: '100%'
-        })
+        default: function _default() {
+          return {
+            width: '100%',
+            height: '100%',
+          };
+        },
       },
       theme: {
         type: [String, Object],
-        required: false
+        required: false,
       },
       group: {
         type: String,
-        required: false
+        required: false,
       },
       option: {
         type: Object,
-        required: true
+        required: true,
       },
       initOpts: {
         type: Object,
-        required: false
+        required: false,
       },
       notMerge: {
         type: Boolean,
         required: false,
-        default: false
+        default: false,
       },
       lazyUpdate: {
         type: Boolean,
         required: false,
-        default: false
+        default: false,
       },
       loading: {
         type: Boolean,
         required: false,
-        default: false
+        default: false,
       },
       loadingOpts: {
         type: Object,
-        required: false
+        required: false,
       },
       resizable: {
         type: Boolean,
         required: false,
-        default: false
-      }
+        default: false,
+      },
     },
-    data() {
+    data: function data() {
       return {
         fnResize: null,
         insResize: null,
@@ -94,331 +97,375 @@ function wrapECharts(ECharts) {
         watches: {
           loading: null,
           option: null,
-          group: null
-        }
+          group: null,
+        },
       };
     },
     computed: {
       width: {
         cache: false,
-        get: function() {
+        get: function get() {
           return this.instance.getWidth();
-        }
+        },
       },
       height: {
         cache: false,
-        get: function() {
+        get: function get() {
           return this.instance.getHeight();
-        }
+        },
       },
       isDisposed: {
         cache: false,
-        get: function() {
+        get: function get() {
           return this.instance.isDisposed();
-        }
-      }
+        },
+      },
     },
     watch: {
       loading: {
-        handler: function(loading) {
-          const that = this;
+        handler: function handler(loading) {
+          var that = this;
           that.ifLoading(loading);
         },
-        deep: false
+        deep: false,
       },
       option: {
-        handler: function(option) {
-          const that = this;
+        handler: function handler(option) {
+          var that = this;
           that.instance.setOption(option, that.notMerge, that.lazyUpdate);
         },
-        deep: true
+        deep: true,
       },
       group: {
-        handler: function(group) {
-          const that = this;
+        handler: function handler(group) {
+          var that = this;
           that.instance.group = group;
         },
-        deep: false
-      }
+        deep: false,
+      },
     },
     methods: {
-      initResize: function(dom) {
-        const that = this;
+      initResize: function initResize(dom) {
+        var that = this;
+
         if (that.resizable) {
-          that.insResize = that.insResize || Resize({
-            strategy: 'scroll' // <- For ultra performance.
-          });
-          that.fnResize = that.fnResize || _throttle(that.resize, 250, {
-            leading: true,
-            trailing: true
-          });
+          that.insResize =
+            that.insResize ||
+            Resize({
+              strategy: 'scroll', // <- For ultra performance.
+            });
+          that.fnResize =
+            that.fnResize ||
+            _throttle(that.resize, 250, {
+              leading: true,
+              trailing: true,
+            });
           that.insResize.listenTo(dom, function(element) {
-            const width = element.offsetWidth;
-            const height = element.offsetHeight;
+            var width = element.offsetWidth;
+            var height = element.offsetHeight;
             that.fnResize({
-              width,
-              height,
-              silent: false
+              width: width,
+              height: height,
+              silent: false,
             });
           });
         }
       },
-      init: function() {
-        const that = this;
+      init: function init() {
+        var that = this;
+
         if (!that.instance) {
-          const dom = that.$el;
-          let instance = ECharts.getInstanceByDom(dom);
+          var dom = that.$el;
+          var instance = ECharts$$1.getInstanceByDom(dom);
+
           if (!instance) {
-            instance = ECharts.init(dom, that.theme, that.initOpts);
+            instance = ECharts$$1.init(dom, that.theme, that.initOpts);
           }
+
           instance.group = that.group;
           that.instance = instance;
-          that.$emit('ready', instance, ECharts);
+          that.$emit('ready', instance, ECharts$$1);
           that.$nextTick(function() {
             that.ifLoading(that.loading);
-            that.update();
-            // that.watch();
+            that.update(); // that.watch();
+
             that.bind();
             that.initResize(dom);
           });
         }
       },
-      bind: function() {
-        const that = this;
-        const _on = function _on(name) {
+      bind: function bind() {
+        var that = this;
+
+        var _on = function _on(name) {
           that.instance.on(name, function(event) {
-            that.$emit(name, event, that.instance, ECharts);
+            that.$emit(name, event, that.instance, ECharts$$1);
           });
         };
 
         if (that._events) {
-          for (let e in that._events) {
+          for (var e in that._events) {
             if (Object.prototype.hasOwnProperty.call(that._events, e)) {
-              const name = e.toLowerCase();
+              var name = e.toLowerCase();
+
               if (ECHARTS_EVENTS.indexOf(name) > -1) {
                 _on(name);
               }
             }
           }
         } else {
-          for (let i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
+          for (var i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
             _on(ECHARTS_EVENTS[i]);
           }
         }
       },
-      unbind: function() {
-        const that = this;
+      unbind: function unbind() {
+        var that = this;
+
         if (that._events) {
-          for (let e in that._events) {
+          for (var e in that._events) {
             if (Object.prototype.hasOwnProperty.call(that._events, e)) {
-              const name = e.toLowerCase();
+              var name = e.toLowerCase();
+
               if (ECHARTS_EVENTS.indexOf(name) > -1) {
                 that.instance.off(name);
               }
             }
           }
         } else {
-          for (let i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
+          for (var i = 0, len = ECHARTS_EVENTS.length; i < len; i++) {
             that.instance.off(ECHARTS_EVENTS[i]);
           }
         }
       },
-      ifLoading: function(loading) {
-        const that = this;
+      ifLoading: function ifLoading(loading) {
+        var that = this;
+
         if (loading) {
           that.showLoading();
         } else {
           that.hideLoading();
         }
       },
-      watch: function() {
-        const that = this;
+      watch: function watch() {
+        var that = this;
         that.watches.loading = that.$watch('loading', function(loading) {
           that.ifLoading(loading);
         });
-        that.watches.option = that.$watch('option', function(option) {
-          that.instance.setOption(option, that.notMerge, that.lazyUpdate);
-        }, {
-          deep: true
-        });
+        that.watches.option = that.$watch(
+          'option',
+          function(option) {
+            that.instance.setOption(option, that.notMerge, that.lazyUpdate);
+          },
+          {
+            deep: true,
+          }
+        );
         that.watches.group = that.$watch('group', function(group) {
           that.instance.group = group;
         });
       },
-      unwatch: function() {
-        const that = this;
+      unwatch: function unwatch() {
+        var that = this;
+
         if (that.watches.loading) {
           that.watches.loading();
           that.watches.loading = null;
         }
+
         if (that.watches.option) {
           that.watches.option();
           that.watches.option = null;
         }
+
         if (that.watches.group) {
           that.watches.group();
           that.watches.group = null;
         }
       },
-      resize: function(opts) {
-        const that = this;
+      resize: function resize(opts) {
+        var that = this;
+
         if (that.instance) {
-          const width = opts && opts.width;
-          const height = opts && opts.height;
+          var width = opts && opts.width;
+          var height = opts && opts.height;
           that.$emit('resize', width, height);
           that.instance.resize(opts);
         }
       },
-      update: function() {
-        const that = this;
+      update: function update() {
+        var that = this;
+
         if (that.instance) {
           that.instance.setOption(that.option, that.notMerge, that.lazyUpdate);
           that.resize();
         }
       },
-      mergeOption: function(opts) {
-        const that = this;
+      mergeOption: function mergeOption(opts) {
+        var that = this;
+
         if (that.instance) {
           that.instance.setOption(opts, false, that.lazyUpdate);
           that.resize();
         }
       },
-      dispatchAction: function(payload) {
-        const that = this;
+      dispatchAction: function dispatchAction(payload) {
+        var that = this;
+
         if (that.instance) {
           that.instance.dispatchAction(payload);
         }
       },
-      convertToPixel: function(finder, value) {
-        const that = this;
+      convertToPixel: function convertToPixel(finder, value) {
+        var that = this;
         return that.instance.convertToPixel(finder, value);
       },
-      convertFromPixel: function(finder, value) {
-        const that = this;
+      convertFromPixel: function convertFromPixel(finder, value) {
+        var that = this;
         return that.instance.convertFromPixel(finder, value);
       },
-      containPixel: function(finder, value) {
-        const that = this;
+      containPixel: function containPixel(finder, value) {
+        var that = this;
         return that.instance.containPixel(finder, value);
       },
-      showLoading: function() {
-        const that = this;
+      showLoading: function showLoading() {
+        var that = this;
+
         if (that.instance) {
           that.instance.showLoading('default', that.loadingOpts);
         }
       },
-      hideLoading: function() {
-        const that = this;
+      hideLoading: function hideLoading() {
+        var that = this;
+
         if (that.instance) {
           that.instance.hideLoading();
         }
       },
-      getDataURL: function(opts) {
-        const that = this;
+      getDataURL: function getDataURL(opts) {
+        var that = this;
         return that.instance.getDataURL(opts);
       },
-      getConnectedDataURL: function(opts) {
-        const that = this;
+      getConnectedDataURL: function getConnectedDataURL(opts) {
+        var that = this;
         return that.instance.getConnectedDataURL(opts);
       },
-      clear: function() {
-        const that = this;
+      clear: function clear() {
+        var that = this;
+
         if (that.instance) {
           that.instance.clear();
         }
       },
-      uninitResize: function() {
-        const that = this;
+      uninitResize: function uninitResize() {
+        var that = this;
+
         if (that.insResize && that.insResize.uninstall) {
           that.insResize.uninstall(that.$el);
           that.insResize = null;
         }
+
         if (that.fnResize && that.fnResize.cancel) {
           that.fnResize.cancel();
           that.fnResize = null;
         }
       },
-      uninit: function() {
-        const that = this;
+      uninit: function uninit() {
+        var that = this;
+
         if (that.instance) {
-          that.unbind();
-          // that.unwatch();
+          that.unbind(); // that.unwatch();
+
           that.uninitResize();
           that.instance.dispose();
           that.instance = null;
         }
-      }
+      },
     },
     // beforeCreate() {
-      // const that = this;
-      // console.log('beforeCreate');
+    // const that = this;
+    // console.log('beforeCreate');
     // },
     // created() {
-      // const that = this;
-      // console.log('created');
+    // const that = this;
+    // console.log('created');
     // },
     // beforeMount() {
-      // const that = this;
-      // console.log('beforeMount');
+    // const that = this;
+    // console.log('beforeMount');
     // },
-    mounted() {
-      const that = this;
-      // console.log('mounted');
+    mounted: function mounted() {
+      var that = this; // console.log('mounted');
+
       that.init();
     },
     // beforeUpdate() {
-      // const that = this;
-      // console.log('beforeUpdate');
+    // const that = this;
+    // console.log('beforeUpdate');
     // },
     // updated() {
-      // const that = this;
-      // console.log('updated');
+    // const that = this;
+    // console.log('updated');
     // },
     // activated() {
-      // const that = this;
-      // console.log('activated');
+    // const that = this;
+    // console.log('activated');
     // },
     // deactivated() {
-      // const that = this;
-      // console.log('deactivated');
+    // const that = this;
+    // console.log('deactivated');
     // },
-    beforeDestroy() {
-      const that = this;
-      // console.log('beforeDestroy');
+    beforeDestroy: function beforeDestroy() {
+      var that = this; // console.log('beforeDestroy');
+
       that.uninit();
     },
     // destroyed() {
-      // const that = this;
-      // console.log('destroyed');
+    // const that = this;
+    // console.log('destroyed');
     // },
-    connect(group) {
-      return ECharts.connect(group);
+    connect: function connect(group) {
+      return ECharts$$1.connect(group);
     },
-    disConnect(group) {
-      return ECharts.disConnect(group);
+    disConnect: function disConnect(group) {
+      return ECharts$$1.disConnect(group);
     },
-    dispose(target) {
-      return ECharts.dispose(target);
+    dispose: function dispose(target) {
+      return ECharts$$1.dispose(target);
     },
-    getInstanceByDom(target) {
-      return ECharts.getInstanceByDom(target);
+    getInstanceByDom: function getInstanceByDom(target) {
+      return ECharts$$1.getInstanceByDom(target);
     },
-    registerMap(mapName, geoJson, specialAreas) {
-      return ECharts.registerMap(mapName, geoJson, specialAreas);
+    registerMap: function registerMap(mapName, geoJson, specialAreas) {
+      return ECharts$$1.registerMap(mapName, geoJson, specialAreas);
     },
-    getMap(mapName) {
-      return ECharts.getMap(mapName);
+    getMap: function getMap(mapName) {
+      return ECharts$$1.getMap(mapName);
     },
-    registerTheme(themeName, theme) {
-      return ECharts.registerTheme(themeName, theme);
+    registerTheme: function registerTheme(themeName, theme) {
+      return ECharts$$1.registerTheme(themeName, theme);
     },
-    render(h) {
-      const that = this;
+    render: function render(h) {
+      var that = this;
       return h('div', {
-        style: that.styles
+        style: that.styles,
       });
-    }
+    },
   };
 }
 
-export default wrapECharts;
+var IEcharts = wrapECharts(ECharts);
+IEcharts.__echarts__ = ECharts;
+//   Vue.component(IEcharts.name, IEcharts);
+// };
+// if (typeof window !== 'undefined' && window.Vue) {
+//   install(window.Vue);
+// }
+// const API = {
+//   // version: '2.7.0',
+//   install,
+//   IEcharts
+// };
+// export default API;
+
+export default IEcharts;
