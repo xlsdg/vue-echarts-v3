@@ -1,4 +1,4 @@
-import _throttle from 'lodash-es/throttle';
+import _throttle from 'lodash.throttle';
 import Resize from 'element-resize-detector';
 
 const ECHARTS_EVENTS = [

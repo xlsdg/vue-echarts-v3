@@ -4,7 +4,7 @@ function _interopDefault(ex) {
   return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex;
 }
 
-var _throttle = _interopDefault(require('lodash-es/throttle'));
+var _throttle = _interopDefault(require('lodash.throttle'));
 var Resize = _interopDefault(require('element-resize-detector'));
 var ECharts = require('echarts');
 

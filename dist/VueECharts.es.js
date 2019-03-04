@@ -1,4 +1,4 @@
-import _throttle from 'lodash-es/throttle';
+import _throttle from 'lodash.throttle';
 import Resize from 'element-resize-detector';
 import * as ECharts from 'echarts';
 
