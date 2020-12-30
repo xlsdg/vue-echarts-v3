@@ -80,7 +80,10 @@ $ npm install --save echarts vue-echarts-v3
 
     // import 'echarts/lib/component/graphic';
     // import 'echarts/lib/component/grid';
+    
     // import 'echarts/lib/component/legend';
+    // import 'echarts/lib/component/legendScroll';
+    
     // import 'echarts/lib/component/tooltip';
     // import 'echarts/lib/component/polar';
     // import 'echarts/lib/component/geo';
