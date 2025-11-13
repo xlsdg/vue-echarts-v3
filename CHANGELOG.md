@@ -1,33 +1,33 @@
-# 版本记录
+# Changelog
 
-> [+]新增 [-]删除 [^]升级 [#]修复
+> [+] Added [-] Removed [^] Changed [#] Fixed
 
 ## 2.0.1
 
-* [-] 删除 `lodash-es` 库依赖
+* [-] Remove `lodash-es` library dependency
 
 ## 2.0.0
 
-* [-] 删除 `lodash` 库依赖
+* [-] Remove `lodash` library dependency
 
 ## 1.0.19
 
-* [+] 添加 `IEcharts.__echarts__` 来访问 `echarts` 的方法
-* [#] `resize` 事件处理从 `debounce` 换成 `throttle`
+* [+] Add `IEcharts.__echarts__` to access `echarts` methods
+* [#] Change `resize` event handling from `debounce` to `throttle`
 
 ## 1.0.18
 
-* [+] `theme` 允许传对象来修改主题
+* [+] Allow `theme` to accept an object to customize the theme
 
 ## 1.0.17
 
-* [-] 删除无用的代码
+* [-] Remove unused code
 
 ## 1.0.16
 
-* [+] 添加 `resize` 事件
+* [+] Add `resize` event
 
 ## 1.0.15
 
-* [^] 重构代码打包部分
-* [#] 与 `1.0.5` 版本不兼容，忘了改大版本号
+* [^] Refactor code bundling
+* [#] Incompatible with version `1.0.5`, forgot to bump major version

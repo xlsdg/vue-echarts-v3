@@ -1,57 +1,100 @@
 {
+  "name": "vue-echarts-v3",
+  "version": "3.0.0",
+  "description": "Vue.js 3 component wrapper for Apache ECharts",
   "author": "xLsDg <xlsdg@qq.com> (https://xlsdg.org/)",
-  "browser": "dist/VueECharts.js",
-  "bugs": {
-    "url": "https://github.com/xlsdg/vue-echarts-v3/issues"
-  },
-  "dependencies": {
-    "element-resize-detector": "latest",
-    "lodash.throttle": "latest"
-  },
-  "description": "Vue.js component wrap for ECharts.js(v3.x+)",
-  "devDependencies": {
-    "bili": "^3.4.2",
-    "prettier": "^1.16.4",
-    "rollup-plugin-prettier": "^0.6.0",
-    "rollup-plugin-vue": "^4.7.2",
-    "vue-template-compiler": "^2.6.8"
-  },
-  "engines": {
-    "node": ">=8",
-    "npm": ">=5"
-  },
-  "files": [
-    "dist",
-    "src"
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "vue",
+    "vue3",
+    "echarts",
+    "vue-echarts",
+    "vue-echarts-v3",
+    "chart",
+    "visualization",
+    "typescript"
   ],
   "homepage": "https://github.com/xlsdg/vue-echarts-v3",
-  "jsdelivr": "dist/VueECharts.min.js",
-  "keywords": [
-    "echarts",
-    "library",
-    "vue",
-    "vue-echarts",
-    "vue-echarts-v3"
-  ],
-  "license": "MIT",
-  "main": "dist/VueECharts.cjs.js",
-  "module": "dist/VueECharts.es.js",
-  "name": "vue-echarts-v3",
-  "peerDependencies": {
-    "echarts": "*",
-    "vue": "*"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/xlsdg/vue-echarts-v3.git"
   },
-  "scripts": {
-    "build": "bili",
-    "release:major": "npm version major && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:patch": "npm version patch && npm publish"
+  "bugs": {
+    "url": "https://github.com/xlsdg/vue-echarts-v3/issues"
   },
-  "source": "src/full.js",
-  "unpkg": "dist/VueECharts.min.js",
-  "version": "2.0.1"
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "browser": "./dist/index.umd.js",
+  "unpkg": "./dist/index.umd.js",
+  "jsdelivr": "./dist/index.umd.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./lite": {
+      "types": "./dist/types/lite.d.ts",
+      "import": "./dist/lite.js",
+      "require": "./dist/lite.cjs"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "dev": "vite --config demo/vite.config.ts",
+    "build": "npm run type-check && vite build",
+    "type-check": "tsc --noEmit",
+    "preview": "vite preview --config demo/vite.config.ts",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint . --ext .ts,.vue --fix",
+    "format": "prettier --write \"src/**/*.{ts,vue}\" \"demo/**/*.{ts,vue}\" \"tests/**/*.ts\"",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "demo:build": "vite build --config demo/vite.config.ts",
+    "demo:preview": "vite preview --config demo/vite.config.ts",
+    "prepublishOnly": "npm run build && npm run test:coverage"
+  },
+  "peerDependencies": {
+    "echarts": "^5.4.0",
+    "vue": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "@vitest/coverage-v8": "^1.2.1",
+    "@vitest/ui": "^1.2.1",
+    "@vue/test-utils": "^2.4.3",
+    "echarts": "^5.4.3",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-vue": "^9.20.1",
+    "jsdom": "^23.2.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vite-plugin-dts": "^3.7.2",
+    "vitepress": "^1.0.0-rc.40",
+    "vitest": "^1.2.1",
+    "vue": "^3.4.15",
+    "vue-tsc": "^1.8.27"
+  }
 }

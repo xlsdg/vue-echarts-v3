@@ -1,251 +1,244 @@
-# vue-echarts-v3 [![npm](https://img.shields.io/npm/v/vue-echarts-v3.svg)](https://www.npmjs.com/package/vue-echarts-v3) [![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/) [![echarts3](https://img.shields.io/badge/echarts-3.x-brightgreen.svg)](http://echarts.baidu.com/)
+# vue-echarts-v3
 
-> [Vue.js](https://vuejs.org/) `v2.x+` component wrap for [Apache ECharts (incubating)](https://github.com/apache/incubator-echarts) `v3.x+`
+[![npm](https://img.shields.io/npm/v/vue-echarts-v3.svg)](https://www.npmjs.com/package/vue-echarts-v3)
+[![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://vuejs.org/)
+[![echarts](https://img.shields.io/badge/echarts-5.x-brightgreen.svg)](https://echarts.apache.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)](https://www.typescriptlang.org/)
+[![license](https://img.shields.io/npm/l/vue-echarts-v3.svg)](https://github.com/xlsdg/vue-echarts-v3/blob/master/LICENSE)
 
+> Vue.js 3 component wrapper for [Apache ECharts](https://echarts.apache.org/)
 
-## Feature
+## ✨ Features
 
-1. Lightweight, efficient, on-demand binding events;
-2. Support for importing ECharts.js charts and components on demand;
-3. Support component resize event auto update view;
+- ⚡️ **Vue 3 Native** - Built with Composition API for Vue 3
+- 📦 **Tree Shakeable** - Lite version with selective ECharts imports
+- 🔷 **TypeScript First** - Written in TypeScript with strict mode
+- 📱 **Auto Resize** - Built-in responsive behavior with ResizeObserver
+- 🎯 **Composable API** - Both component and composable interfaces
+- ⚡️ **Lightweight** - Minimal overhead, efficient event binding
+- 🎨 **Full-Featured** - Complete access to all ECharts capabilities
 
-
-## Installation
+## 📦 Installation
 
 ```bash
-$ npm install --save echarts vue-echarts-v3
+npm install echarts vue-echarts-v3
 ```
 
+## 🚀 Quick Start
 
-## Usage
+### 1. Import and Register ECharts Modules
 
-0. Change webpack config
+```typescript
+// main.ts
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { LineChart, BarChart } from 'echarts/charts'
+import {
+  GridComponent,
+  TooltipComponent,
+  TitleComponent
+} from 'echarts/components'
 
-    For webpack 1.x:
+use([
+  CanvasRenderer,
+  LineChart,
+  BarChart,
+  GridComponent,
+  TooltipComponent,
+  TitleComponent
+])
+```
 
-    ```diff
-          {
-            test: /\.js$/,
-            loader: 'babel',
-            include: [
-    -          path.join(prjRoot, 'src')
-    +          path.join(prjRoot, 'src'),
-    +          path.join(prjRoot, 'node_modules/vue-echarts-v3/src')
-            ],
-    -        exclude: /node_modules/
-    +        exclude: /node_modules(?![\\/]vue-echarts-v3[\\/]src[\\/])/
-          },
-    ```
-
-    For webpack 2.x+:
-
-    ```diff
-          {
-            test: /\.js$/,
-            loader: 'babel-loader',
-    -       include: [resolve('src'), resolve('test')]
-    +       include: [resolve('src'), resolve('test'), resolve('node_modules/vue-echarts-v3/src')]
-          }
-    ```
-
-1. Import all charts and components
-
-    ```javascript
-    import IEcharts from 'vue-echarts-v3/src/full.js';
-    ```
-
-2. Import ECharts.js modules manually to reduce bundle size
-
-    ```javascript
-    import IEcharts from 'vue-echarts-v3/src/lite.js';
-
-    // import 'echarts/lib/chart/line';
-    import 'echarts/lib/chart/bar';
-    // import 'echarts/lib/chart/pie';
-    // import 'echarts/lib/chart/scatter';
-    // import 'echarts/lib/chart/radar';
-
-    // import 'echarts/lib/chart/map';
-    // import 'echarts/lib/chart/treemap';
-    // import 'echarts/lib/chart/graph';
-    // import 'echarts/lib/chart/gauge';
-    // import 'echarts/lib/chart/funnel';
-    // import 'echarts/lib/chart/parallel';
-    // import 'echarts/lib/chart/sankey';
-    // import 'echarts/lib/chart/boxplot';
-    // import 'echarts/lib/chart/candlestick';
-    // import 'echarts/lib/chart/effectScatter';
-    // import 'echarts/lib/chart/lines';
-    // import 'echarts/lib/chart/heatmap';
-
-    // import 'echarts/lib/component/graphic';
-    // import 'echarts/lib/component/grid';
-    // import 'echarts/lib/component/legend';
-    // import 'echarts/lib/component/tooltip';
-    // import 'echarts/lib/component/polar';
-    // import 'echarts/lib/component/geo';
-    // import 'echarts/lib/component/parallel';
-    // import 'echarts/lib/component/singleAxis';
-    // import 'echarts/lib/component/brush';
-
-    import 'echarts/lib/component/title';
-
-    // import 'echarts/lib/component/dataZoom';
-    // import 'echarts/lib/component/visualMap';
-
-    // import 'echarts/lib/component/markPoint';
-    // import 'echarts/lib/component/markLine';
-    // import 'echarts/lib/component/markArea';
-
-    // import 'echarts/lib/component/timeline';
-    // import 'echarts/lib/component/toolbox';
-
-    // import 'zrender/lib/vml/vml';
-    ```
-
-## Using the component
+### 2. Use the Component
 
 ```vue
-<template>
-  <div class="echarts">
-    <IEcharts
-      :option="bar"
-      :loading="loading"
-      @ready="onReady"
-      @click="onClick"
-    />
-    <button @click="doRandom">Random</button>
-  </div>
-</template>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { VChart } from 'vue-echarts-v3'
+import type { EChartsOption } from 'echarts'
 
-<script type="text/babel">
-  import IEcharts from 'vue-echarts-v3/src/full.js';
-  export default {
-    name: 'view',
-    components: {
-      IEcharts
-    },
-    props: {
-    },
-    data: () => ({
-      loading: true,
-      bar: {
-        title: {
-          text: 'ECharts Hello World'
-        },
-        tooltip: {},
-        xAxis: {
-          data: ['Shirt', 'Sweater', 'Chiffon Shirt', 'Pants', 'High Heels', 'Socks']
-        },
-        yAxis: {},
-        series: [{
-          name: 'Sales',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }]
-      }
-    }),
-    methods: {
-      doRandom() {
-        const that = this;
-        let data = [];
-        for (let i = 0, min = 5, max = 99; i < 6; i++) {
-          data.push(Math.floor(Math.random() * (max + 1 - min) + min));
-        }
-        that.loading = !that.loading;
-        that.bar.series[0].data = data;
-      },
-      onReady(instance, ECharts) {
-        console.log(instance, ECharts);
-      },
-      onClick(event, instance, ECharts) {
-        console.log(arguments);
-      }
-    }
-  };
+const option = ref<EChartsOption>({
+  title: { text: 'ECharts Example' },
+  tooltip: {},
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: { type: 'value' },
+  series: [{
+    name: 'Sales',
+    type: 'bar',
+    data: [5, 20, 36, 10, 10, 20, 30]
+  }]
+})
 </script>
 
-<style scoped>
-  .echarts {
-    width: 400px;
-    height: 400px;
-  }
-</style>
+<template>
+  <v-chart
+    :option="option"
+    autoresize
+    style="width: 100%; height: 400px"
+  />
+</template>
 ```
 
-## Properties
+## 📖 Usage Modes
 
-* `styles`
+### Full Version
 
-  Optional; CSS style is `{ width: 100%; height: 100%; }` by default.
+Import all ECharts modules:
 
-* `initOpts` & `theme`
+```typescript
+import { VChart } from 'vue-echarts-v3'
+```
 
-  Optional; Used to initialize ECharts instance.
+### Lite Version (Recommended)
 
-* `option` **[reactive]**
+Import only the core and manually register required components for smaller bundle size:
 
-  Used to update data for ECharts instance. Modifying this property will trigger ECharts' `setOptions` method.
+```typescript
+import { VChart } from 'vue-echarts-v3/lite'
 
-* `group` **[reactive]**
+// Then import and register only what you need
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { LineChart } from 'echarts/charts'
+// ... other imports
+```
 
-  Optional; This property is automatically bound to the same property of the ECharts instance.
+### Composable API
 
-* `notMerge`
+For more control, use the composable directly:
 
-  Optional; `false` by default. [Detail](http://echarts.baidu.com/api.html#echartsInstance.setOption)
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useECharts } from 'vue-echarts-v3'
+import type { EChartsOption } from 'echarts'
 
-* `lazyUpdate`
+const chartRef = ref<HTMLElement>()
+const option = ref<EChartsOption>({ /* ... */ })
 
-  Optional; `false` by default. [Detail](http://echarts.baidu.com/api.html#echartsInstance.setOption)
+const { chart, setOption, resize } = useECharts(
+  chartRef,
+  option,
+  { autoresize: true }
+)
+</script>
 
-* `loading` **[reactive]**
+<template>
+  <div ref="chartRef" style="width: 600px; height: 400px" />
+</template>
+```
 
-  Optional; `false` by default. Modifying this property will trigger ECharts' `showLoading` or `hideLoading` method.
+## 🔧 Component Props
 
-* `loadingOpts`
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `option` | `EChartsOption` | **required** | ECharts option configuration |
+| `theme` | `string \| object` | - | Theme to apply |
+| `initOptions` | `EChartsInitOpts` | - | Initialization options |
+| `updateOptions` | `SetOptionOpts` | `{ notMerge: false, lazyUpdate: false }` | Update options for setOption |
+| `loading` | `boolean` | `false` | Show loading animation |
+| `loadingOptions` | `object` | - | Loading animation options |
+| `autoresize` | `boolean \| object` | `false` | Enable auto-resize on container size change |
+| `group` | `string` | - | Group name for chart connection |
 
-  Optional; [Detail](https://ecomfe.github.io/echarts-doc/public/en/api.html#echartsInstance.showLoading)
+## 📡 Component Events
 
-* `resizable`
+| Event | Parameters | Description |
+|-------|------------|-------------|
+| `ready` | `(instance: EChartsType)` | Emitted when chart is initialized |
+| `resize` | `(width: number, height: number)` | Emitted when chart is resized |
+| `click` | `(event: ECElementEvent)` | Mouse click event |
+| `dblclick` | `(event: ECElementEvent)` | Mouse double-click event |
+| ... | ... | All ECharts events are supported |
 
-  Optional; `false` by default.
+## 🛠️ Exposed Methods
 
-See more [ECharts' Option](http://echarts.baidu.com/option.html)
+Access chart instance methods via template ref:
 
-## Instance Methods
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import type { VChartExposed } from 'vue-echarts-v3'
 
-* `resize`
-* `update`
-* `mergeOption`
-* `dispatchAction`
-* `convertToPixel`
-* `convertFromPixel`
-* `containPixel`
-* `showLoading`
-* `hideLoading`
-* `getDataURL`
-* `getConnectedDataURL`
-* `clear`
+const chartRef = ref<VChartExposed>()
 
+const exportImage = () => {
+  const url = chartRef.value?.getDataURL({
+    type: 'png',
+    pixelRatio: 2
+  })
+  // ... download url
+}
+</script>
 
-## Static Methods
+<template>
+  <v-chart ref="chartRef" :option="option" />
+</template>
+```
 
-* `connect`
-* `disConnect`
-* `dispose`
-* `getInstanceByDom`
-* `registerMap`
-* `getMap`
-* `registerTheme`
+Available methods:
 
-Learn more [ECharts' API](http://echarts.baidu.com/api.html)
+- `getInstance()` - Get ECharts instance
+- `setOption(option, opts?)` - Set chart option
+- `resize(opts?)` - Resize chart
+- `dispatchAction(payload)` - Dispatch action
+- `showLoading(type?, opts?)` - Show loading
+- `hideLoading()` - Hide loading
+- `getDataURL(opts?)` - Get data URL
+- `clear()` - Clear chart
+- `dispose()` - Dispose instance
 
+## 📚 Documentation
 
-## Demo
+For detailed documentation, visit: [https://xlsdg.github.io/vue-echarts-v3/](https://xlsdg.github.io/vue-echarts-v3/)
 
-[vue-echarts-v3-demo](https://github.com/xlsdg/vue-echarts-v3-demo)
+## 🎨 Demo
 
-# License
+Live demo: [https://xlsdg.github.io/vue-echarts-v3/demo](https://xlsdg.github.io/vue-echarts-v3/demo)
 
-MIT
+## 🔄 Migration from v2
+
+This is a major version upgrade with breaking changes. See the [Migration Guide](https://xlsdg.github.io/vue-echarts-v3/guide/migration) for details.
+
+Key changes:
+
+- Vue 3 only (no Vue 2 support)
+- TypeScript rewrite with strict mode
+- Composition API instead of Options API
+- ResizeObserver instead of element-resize-detector
+- New composable API
+- Updated prop names and event signatures
+
+## 💻 Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run demo
+npm run dev
+
+# Build library
+npm run build
+
+# Run tests
+npm test
+
+# Type check
+npm run type-check
+
+# Lint
+npm run lint
+```
+
+## 📄 License
+
+[MIT](https://github.com/xlsdg/vue-echarts-v3/blob/master/LICENSE)
+
+## 🙏 Credits
+
+- [Apache ECharts](https://echarts.apache.org/) - Powerful charting library
+- [Vue.js](https://vuejs.org/) - Progressive JavaScript framework

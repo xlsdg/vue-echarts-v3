@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": false
+  },
+  "include": [
+    "demo/**/*.ts",
+    "demo/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,32 @@
+# Source files
+src/
+tests/
+demo/
+docs/
+
+# Config files
+.github/
+.vscode/
+*.config.ts
+*.config.js
+tsconfig*.json
+.eslintrc*
+.prettierrc*
+.editorconfig
+
+# Development files
+*.test.ts
+*.spec.ts
+*.md
+!README.md
+
+# Build artifacts
+coverage/
+.vitest/
+.vitepress/
+node_modules/
+*.log
+
+# Git
+.git/
+.gitignore

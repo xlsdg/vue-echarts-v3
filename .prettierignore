@@ -1,17 +1,9 @@
-**/*.md
-**/*.svg
-**/*.ejs
-**/*.html
-**/*.eot
-**/*.ttf
-**/*.woff
-
-# dependencies
-/node_modules
-/package.json
-
-# production
-/dist
-
-# misc
-.DS_Store
+dist
+dist-demo
+node_modules
+coverage
+*.min.js
+docs/.vitepress/cache
+docs/.vitepress/dist
+pnpm-lock.yaml
+package-lock.json
