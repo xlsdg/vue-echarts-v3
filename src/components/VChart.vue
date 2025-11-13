@@ -13,12 +13,15 @@ const option = toRef(props, 'option')
 const manualUpdate = computed(() => props.updateOptions?.manual ?? false)
 
 // Create event handlers that emit Vue events
-const eventHandlers = ECHARTS_EVENTS.reduce((handlers, eventName) => {
-  handlers[eventName] = (event: unknown) => {
-    emit(eventName as keyof VChartEmits, event as never)
-  }
-  return handlers
-}, {} as Record<string, (event: unknown) => void>)
+const eventHandlers = ECHARTS_EVENTS.reduce(
+  (handlers, eventName) => {
+    handlers[eventName] = (event: unknown) => {
+      emit(eventName as keyof VChartEmits, event as never)
+    }
+    return handlers
+  },
+  {} as Record<string, (event: unknown) => void>
+)
 
 // Use the core chart instance composable
 const chartInstance = useChartInstance(root, option, {
@@ -116,6 +119,5 @@ defineExpose<VChartExposed>({
 .v-chart {
   width: 100%;
   height: 100%;
-  min-height: 200px;
 }
 </style>

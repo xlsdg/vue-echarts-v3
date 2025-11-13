@@ -75,7 +75,7 @@ const exportImage = () => {
     </div>
 
     <div class="chart-wrapper">
-      <div ref="chartRef" class="chart-container" />
+      <div ref="chartRef" style="width: 100%; height: 400px" />
     </div>
 
     <details>
@@ -109,3 +109,14 @@ const randomizeData = () => {
     </details>
   </div>
 </template>
+
+<style scoped>
+.chart-wrapper {
+  margin-top: 1.5rem;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+</style>

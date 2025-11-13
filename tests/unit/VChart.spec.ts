@@ -325,11 +325,11 @@ describe('VChart.vue', () => {
 
     it('cleans up resize observer on unmount', async () => {
       const disconnectSpy = vi.fn()
-      global.ResizeObserver = vi.fn().mockImplementation(() => ({
-        observe: vi.fn(),
-        unobserve: vi.fn(),
-        disconnect: disconnectSpy
-      }))
+      global.ResizeObserver = class ResizeObserver {
+        observe = vi.fn()
+        unobserve = vi.fn()
+        disconnect = disconnectSpy
+      }
 
       const wrapper = mount(VChart, {
         props: {
@@ -348,11 +348,11 @@ describe('VChart.vue', () => {
   describe('Auto-resize', () => {
     it('sets up ResizeObserver when autoresize is true', async () => {
       const observeSpy = vi.fn()
-      global.ResizeObserver = vi.fn().mockImplementation(() => ({
-        observe: observeSpy,
-        unobserve: vi.fn(),
-        disconnect: vi.fn()
-      }))
+      global.ResizeObserver = class ResizeObserver {
+        observe = observeSpy
+        unobserve = vi.fn()
+        disconnect = vi.fn()
+      }
 
       mount(VChart, {
         props: {
@@ -367,11 +367,11 @@ describe('VChart.vue', () => {
 
     it('does not set up ResizeObserver when autoresize is false', async () => {
       const observeSpy = vi.fn()
-      global.ResizeObserver = vi.fn().mockImplementation(() => ({
-        observe: observeSpy,
-        unobserve: vi.fn(),
-        disconnect: vi.fn()
-      }))
+      global.ResizeObserver = class ResizeObserver {
+        observe = observeSpy
+        unobserve = vi.fn()
+        disconnect = vi.fn()
+      }
 
       mount(VChart, {
         props: {

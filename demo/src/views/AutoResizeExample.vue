@@ -12,7 +12,7 @@ const option = ref<EChartsOption>({
     trigger: 'item'
   },
   legend: {
-    top: '5%',
+    bottom: '5%',
     left: 'center'
   },
   series: [

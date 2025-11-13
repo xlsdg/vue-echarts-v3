@@ -48,7 +48,7 @@ const setTheme = (newTheme: string | undefined) => {
         :key="theme"
         :option="option"
         :theme="theme"
-        class="chart-container"
+        :style="{ height: '400px' }"
         autoresize
       />
     </div>
@@ -72,3 +72,14 @@ const option = ref({ /* ... */ })
     </details>
   </div>
 </template>
+
+<style scoped>
+.chart-wrapper {
+  margin-top: 1.5rem;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+</style>

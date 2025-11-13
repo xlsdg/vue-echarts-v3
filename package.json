@@ -72,29 +72,30 @@
     "prepublishOnly": "npm run build && npm run test:coverage"
   },
   "peerDependencies": {
-    "echarts": "^5.4.0",
-    "vue": "^3.3.0"
+    "echarts": "^6.x",
+    "vue": "^3.x"
   },
   "devDependencies": {
-    "@types/node": "^20.11.5",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
-    "@vitejs/plugin-vue": "^5.0.3",
-    "@vitest/coverage-v8": "^1.2.1",
-    "@vitest/ui": "^1.2.1",
-    "@vue/test-utils": "^2.4.3",
-    "echarts": "^5.4.3",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-vue": "^9.20.1",
-    "jsdom": "^23.2.0",
-    "prettier": "^3.2.4",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11",
-    "vite-plugin-dts": "^3.7.2",
-    "vitepress": "^1.0.0-rc.40",
-    "vitest": "^1.2.1",
-    "vue": "^3.4.15",
-    "vue-tsc": "^1.8.27"
+    "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitest/coverage-v8": "^4.0.8",
+    "@vitest/ui": "^4.0.8",
+    "@vue/test-utils": "^2.4.6",
+    "ajv": "^8.17.1",
+    "echarts": "^6.x",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.5.1",
+    "jsdom": "^27.2.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2",
+    "vite-plugin-dts": "^4.5.4",
+    "vitepress": "^1.6.4",
+    "vitest": "^4.0.8",
+    "vue": "^3.x",
+    "vue-tsc": "^3.1.3"
   }
 }
