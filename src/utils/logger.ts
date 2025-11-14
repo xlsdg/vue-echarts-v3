@@ -29,7 +29,7 @@ export function error(message: string, error?: unknown): void {
  * @param data - Optional data to log
  */
 export function info(message: string, data?: unknown): void {
-  if (process.env['NODE_ENV'] === 'development') {
+  if (import.meta.env.DEV) {
     console.info(`${PREFIX} ${message}`, data !== undefined ? data : '')
   }
 }

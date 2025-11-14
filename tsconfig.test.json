@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // Add test-specific types (globals: false in vitest.config.ts, so no vitest/globals)
+    "types": ["vite/client", "node", "vitest", "@vue/test-utils"],
+
+    // Relax some strict checks for test files
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+  },
+  "include": [
+    "tests/**/*.ts",
+    "tests/**/*.spec.ts",
+    "tests/**/*.test.ts",
+    "src/**/__tests__/**/*.ts",
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "dist-demo"
+  ]
+}

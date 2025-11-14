@@ -3,6 +3,8 @@ import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import VChart from '@/components/VChart.vue'
 import type { EChartsOption } from 'echarts'
+import type { VChartExposed } from '@/types'
+import { getFirstMockResult, setProps } from '../types'
 
 // Mock echarts
 vi.mock('echarts/core', async () => {
@@ -37,7 +39,7 @@ describe('VChart.vue', () => {
     series: [{ type: 'line', data: [1, 2, 3] }]
   }
 
-  let echarts: any
+  let echarts: Awaited<typeof import('echarts/core')>
 
   beforeEach(async () => {
     echarts = await import('echarts/core')
@@ -93,7 +95,7 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
       expect(mockInstance.setOption).toHaveBeenCalledWith(
         mockOption,
         expect.any(Object)
@@ -144,7 +146,7 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
       expect(mockInstance.group).toBe(group)
     })
   })
@@ -156,14 +158,14 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
 
       const newOption: EChartsOption = {
         ...mockOption,
         title: { text: 'Updated Chart' }
       }
 
-      await wrapper.setProps({ option: newOption })
+      await setProps(wrapper, { option: newOption })
       await nextTick()
 
       expect(mockInstance.setOption).toHaveBeenCalledWith(
@@ -181,9 +183,9 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
 
-      await wrapper.setProps({ loading: true })
+      await setProps(wrapper, { loading: true })
       await nextTick()
 
       expect(mockInstance.showLoading).toHaveBeenCalled()
@@ -198,9 +200,9 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
 
-      await wrapper.setProps({ loading: false })
+      await setProps(wrapper, { loading: false })
       await nextTick()
 
       expect(mockInstance.hideLoading).toHaveBeenCalled()
@@ -215,9 +217,9 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
 
-      await wrapper.setProps({ group: 'group2' })
+      await setProps(wrapper, { group: 'group2' })
       await nextTick()
 
       expect(mockInstance.group).toBe('group2')
@@ -231,8 +233,9 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      expect(wrapper.vm.getInstance).toBeDefined()
-      expect(typeof wrapper.vm.getInstance).toBe('function')
+      const vm = wrapper.vm as unknown as VChartExposed
+      expect(vm.getInstance).toBeDefined()
+      expect(typeof vm.getInstance).toBe('function')
     })
 
     it('exposes setOption method', async () => {
@@ -241,12 +244,13 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      expect(wrapper.vm.setOption).toBeDefined()
+      const vm = wrapper.vm as unknown as VChartExposed
+      expect(vm.setOption).toBeDefined()
 
       const newOption: EChartsOption = { title: { text: 'New' } }
-      wrapper.vm.setOption(newOption)
+      vm.setOption(newOption)
 
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
       expect(mockInstance.setOption).toHaveBeenCalledWith(
         newOption,
         expect.any(Object)
@@ -259,11 +263,12 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      expect(wrapper.vm.resize).toBeDefined()
+      const vm = wrapper.vm as unknown as VChartExposed
+      expect(vm.resize).toBeDefined()
 
-      wrapper.vm.resize()
+      vm.resize()
 
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
       expect(mockInstance.resize).toHaveBeenCalled()
     })
 
@@ -273,12 +278,13 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
+      const vm = wrapper.vm as unknown as VChartExposed
 
-      wrapper.vm.showLoading()
+      vm.showLoading()
       expect(mockInstance.showLoading).toHaveBeenCalled()
 
-      wrapper.vm.hideLoading()
+      vm.hideLoading()
       expect(mockInstance.hideLoading).toHaveBeenCalled()
     })
 
@@ -288,9 +294,10 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
+      const vm = wrapper.vm as unknown as VChartExposed
 
-      wrapper.vm.clear()
+      vm.clear()
       expect(mockInstance.clear).toHaveBeenCalled()
     })
 
@@ -300,10 +307,11 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
+      const vm = wrapper.vm as unknown as VChartExposed
 
       const action = { type: 'highlight', seriesIndex: 0 }
-      wrapper.vm.dispatchAction(action)
+      vm.dispatchAction(action)
 
       expect(mockInstance.dispatchAction).toHaveBeenCalledWith(action)
     })
@@ -316,7 +324,7 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
 
       wrapper.unmount()
 
@@ -392,7 +400,7 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
 
       // Should bind events
       expect(mockInstance.on).toHaveBeenCalled()
@@ -404,7 +412,7 @@ describe('VChart.vue', () => {
       })
 
       await nextTick()
-      const mockInstance = (echarts.init as any).mock.results[0].value
+      const mockInstance = getFirstMockResult(echarts.init)
 
       wrapper.unmount()
 

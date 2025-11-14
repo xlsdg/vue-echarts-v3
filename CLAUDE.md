@@ -4,283 +4,196 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-vue-echarts-v3 is a Vue.js 3 component wrapper for Apache ECharts 5.x+. It provides a modern, type-safe integration with Vue 3's Composition API, featuring both component and composable interfaces for maximum flexibility.
+vue-echarts-v3 is a Vue.js 3 component wrapper for Apache ECharts. It provides both a component-based interface (`VChart`) and a composable API (`useECharts`) built with the Composition API. The library is written in TypeScript with strict mode and uses Vite for building and testing.
 
-**Key Features:**
+## Commands
 
-- Vue 3 Composition API with TypeScript strict mode
-- Dual API: Component-based and composable-based
-- Tree-shakeable with full and lite entry points
-- ResizeObserver for responsive behavior
-- Comprehensive test coverage with Vitest
-- Full documentation with VitePress
+### Development
 
-## Build System
+```bash
+npm run dev                    # Run demo app with Vite
+npm run preview               # Preview demo app
+```
 
-The project uses **Vite** as its build tool with **vite-plugin-dts** for TypeScript declarations.
+### Building
 
-**Development commands:**
+```bash
+npm run build                 # Build library (runs type-check first)
+npm run demo:build           # Build demo app
+```
 
-- `npm run dev` - Start demo development server (port 3000)
-- `npm run build` - Build the library (includes type checking)
-- `npm run type-check` - Run TypeScript type checking
-- `npm test` - Run tests in watch mode
-- `npm run test:coverage` - Run tests with coverage report
-- `npm run lint` - Lint and fix code
-- `npm run format` - Format code with Prettier
+### Type Checking
 
-**Documentation & Demo:**
+```bash
+npm run type-check           # Type check library source
+npm run type-check:demo      # Type check demo code
+npm run type-check:test      # Type check test code
+npm run type-check:all       # Type check everything
+```
 
-- `npm run docs:dev` - Start VitePress documentation dev server
-- `npm run docs:build` - Build documentation for production
-- `npm run demo:build` - Build demo application
+### Testing
 
-**Release:**
+```bash
+npm test                     # Run tests in watch mode
+npm run test:ui              # Run tests with UI
+npm run test:coverage        # Run tests with coverage (requires 95% lines/functions, 90% branches)
+```
 
-- Version bumping and publishing is automated via GitHub Actions on release creation
+### Linting & Formatting
+
+```bash
+npm run lint                 # ESLint with auto-fix
+npm run format               # Format with Prettier
+```
+
+### Documentation
+
+```bash
+npm run docs:dev            # Run VitePress docs in dev mode
+npm run docs:build          # Build VitePress docs
+npm run docs:preview        # Preview built docs
+```
 
 ## Architecture
 
-### Directory Structure
-
-```
-src/
-├── components/
-│   └── VChart.vue          # Main Vue 3 component (Composition API)
-├── composables/
-│   └── useECharts.ts       # Composable for headless usage
-├── types/
-│   └── index.ts            # TypeScript type definitions
-├── index.ts                # Full entry point (all ECharts)
-├── lite.ts                 # Lite entry point (ECharts core only)
-└── global.d.ts             # Global type augmentation
-
-demo/                       # Demo application (Vite + Vue 3)
-docs/                       # VitePress documentation
-tests/                      # Vitest unit tests
-```
-
 ### Entry Points
 
-The library provides two entry points:
+The library has two main entry points:
 
-1. **`src/index.ts`** (Full) - Imports all ECharts (`import * as echarts from 'echarts'`)
-   - Easier to use, all features available
-   - Larger bundle size
-   - Usage: `import { VChart } from 'vue-echarts-v3'`
+1. **Full Version** (`src/index.ts`): Imports `echarts` (full bundle) and exports VChart component with all ECharts modules available. Use when bundle size is not a concern.
 
-2. **`src/lite.ts`** (Lite) - Imports only ECharts core (`import * as echarts from 'echarts/core'`)
-   - Requires manual registration of charts/components
-   - Smaller bundle size (tree-shakeable)
-   - Usage: `import { VChart } from 'vue-echarts-v3/lite'`
+2. **Lite Version** (`src/lite.ts`): Imports `echarts/core` only and requires manual registration of ECharts components. Recommended for production to enable tree-shaking and reduce bundle size.
 
-### Core Component: `src/components/VChart.vue`
+Both export the same component, composable, and types - the only difference is the ECharts import strategy.
 
-The main component is built with Vue 3's `<script setup>` and Composition API.
+### Core Architecture Layers
 
-**Key Implementation Details:**
+The codebase follows a layered architecture with clear separation of concerns:
 
-**Reactivity:**
+#### 1. Core Layer (`src/composables/useChartInstance.ts`)
 
-- Uses `shallowRef` for ECharts instance (not deeply reactive)
-- Uses `ref` for DOM element reference
-- Deep watches `option` prop for changes
-- Watches `loading` and `group` props reactively
+The single source of truth for all ECharts instance management logic. This composable:
 
-**Lifecycle:**
+- Manages chart initialization, disposal, and lifecycle
+- Handles all ECharts API calls (setOption, resize, etc.)
+- Manages event binding/unbinding
+- Integrates resize observer for autoresize functionality
+- Provides error handling and logging for all operations
 
-- `onMounted()` - Initialize ECharts instance, bind events, setup resize observer
-- `onBeforeUnmount()` - Dispose instance, cleanup events and observers
+This is used by BOTH the VChart component and the useECharts composable, ensuring consistent behavior.
 
-**Props:**
+#### 2. High-Level Composable (`src/composables/useECharts.ts`)
 
-- `option` (required) - ECharts option configuration
-- `theme` - Theme name or object
-- `initOptions` - ECharts initialization options
-- `updateOptions` - Options for setOption (notMerge, lazyUpdate)
-- `loading` - Boolean to show/hide loading animation
-- `loadingOptions` - Loading animation configuration
-- `autoresize` - Enable ResizeObserver (boolean or config object)
-- `group` - Group name for chart linking
+A user-facing composable that adds convenience features on top of useChartInstance:
 
-**Events:**
+- Automatic option watching (unless `manual: true`)
+- Loading state management
+- Group management
+- Lifecycle integration (onMounted, onBeforeUnmount)
 
-- All ECharts events are bound and re-emitted as Vue events
-- Special events: `ready` (instance ready), `resize` (chart resized)
+#### 3. Component Layer (`src/components/VChart.vue`)
 
-**Exposed Methods:**
+The Vue component interface that uses useChartInstance directly and:
 
-- `getInstance()`, `setOption()`, `resize()`, `clear()`, `dispose()`
-- `dispatchAction()`, `convertToPixel()`, `convertFromPixel()`, `containPixel()`
-- `showLoading()`, `hideLoading()`, `getDataURL()`
+- Converts props to reactive refs
+- Emits Vue events for all ECharts events
+- Exposes methods via defineExpose
+- Handles prop watching and updates
 
-### Composable: `src/composables/useECharts.ts`
+### Utility Modules
 
-Provides a headless, composable API for advanced use cases.
+- **`src/utils/ref-helpers.ts`**: Helper functions for unwrapping refs and extracting throttle values
+- **`src/utils/resize-observer.ts`**: Creates throttled ResizeObserver instances for autoresize
+- **`src/utils/logger.ts`**: Consistent logging with `[VChart]` prefix
+- **`src/utils/validation.ts`**: Validation utilities (if present)
 
-**Usage Pattern:**
+### Type Definitions
 
-```typescript
-const chartRef = ref<HTMLElement>()
-const option = ref<EChartsOption>({ ... })
+All types are centralized in `src/types/index.ts`:
 
-const { chart, setOption, resize } = useECharts(
-  chartRef,
-  option,
-  { autoresize: true },
-  { click: (event) => console.log(event) }
-)
-```
+- Component props (`vChartProps`, `VChartProps`)
+- Component emits (`VChartEmits`)
+- Component exposed methods (`VChartExposed`)
+- ECharts event names (`ECHARTS_EVENTS` constant array)
+- Extended types (`SetOptionOpts` with `manual` flag)
 
-**Features:**
+## Key Design Patterns
 
-- Automatic lifecycle management (onMounted/onBeforeUnmount)
-- Optional manual mode (no automatic option watching)
-- Event handler registration
-- ResizeObserver integration
-- Returns all ECharts instance methods
+### 1. Single Source of Truth
 
-### Type Definitions: `src/types/index.ts`
+`useChartInstance` is the ONLY place where ECharts instance logic lives. Both VChart and useECharts use it, preventing duplication and ensuring consistency.
 
-All types are exported for TypeScript users:
+### 2. Ref Unwrapping
 
-- `VChartProps` - Component props types
-- `VChartEmits` - Component event types
-- `VChartExposed` - Exposed methods interface
-- `UseEChartsOptions` - Composable options
-- `EChartsEventName` - All supported event names
+Options can be passed as either plain values or Refs. The `unwrapRef` utility handles this uniformly throughout the codebase.
+
+### 3. Error Handling
+
+All ECharts operations are wrapped in try-catch blocks with logging via the logger utility. This prevents errors from breaking the application.
+
+### 4. Event System
+
+ECharts events are defined in a constant array (`ECHARTS_EVENTS`) and programmatically bound. The component emits Vue events for all ECharts events.
+
+### 5. Autoresize Implementation
+
+Uses native ResizeObserver with throttling (default 100ms) instead of external libraries like element-resize-detector.
+
+## Test Coverage Requirements
+
+The project has strict test coverage requirements enforced by Vitest:
+
+- **Lines**: 95%
+- **Functions**: 95%
+- **Branches**: 90%
+- **Statements**: 95%
+
+Tests are located in `tests/unit/` and use:
+
+- Vitest with jsdom environment
+- @vue/test-utils for component testing
+- Setup file at `tests/setup.ts`
 
 ## TypeScript Configuration
 
-The project uses **strict mode** TypeScript with comprehensive checks:
+Multiple tsconfig files for different contexts:
 
-**Three tsconfig files:**
+- `tsconfig.json`: Base configuration for library source
+- `tsconfig.build.json`: Build-specific configuration
+- `tsconfig.demo.json`: Demo app configuration
+- `tsconfig.test.json`: Test files configuration
 
-1. `tsconfig.json` - Base config for IDE and development
-2. `tsconfig.build.json` - Build-specific (declaration generation)
-3. `tsconfig.node.json` - For build tools (Vite, Vitest configs)
+The project uses TypeScript in strict mode.
 
-**Key compiler options:**
+## Build Output
 
-- `strict: true` with all sub-options enabled
-- `noUnusedLocals`, `noUnusedParameters`
-- `noImplicitReturns`, `noUncheckedIndexedAccess`
-- `moduleResolution: "bundler"`
+Vite builds the library to `dist/` with:
 
-## Testing
+- **ES modules**: `index.js`, `lite.js`
+- **CommonJS**: `index.cjs`, `lite.cjs`
+- **Type definitions**: `dist/types/`
+- **Sourcemaps**: Included for debugging
 
-Uses **Vitest** with **@vue/test-utils** for Vue 3 component testing.
+External dependencies (vue, echarts) are not bundled.
 
-**Test Setup** (`tests/setup.ts`):
+## Important Patterns to Follow
 
-- Mocks ResizeObserver (not available in jsdom)
-- Mocks HTMLCanvasElement.getContext for ECharts
-- Configures Vue Test Utils
+### When Adding New Features
 
-**Running Tests:**
+1. If it involves ECharts instance logic, add it to `useChartInstance.ts`
+2. If it's a convenience feature, consider adding to `useECharts.ts`
+3. Update component props in `src/types/index.ts` if needed
+4. Add tests with sufficient coverage
+5. Update types and ensure type-check passes
 
-- `npm test` - Watch mode
-- `npm run test:coverage` - Coverage report (80% threshold)
-- `npm run test:ui` - Vitest UI
+### When Modifying ECharts Logic
 
-## Development Workflow
+All changes to ECharts initialization, options, events, or lifecycle must go through `useChartInstance.ts`. Never interact with the ECharts instance directly in the component or high-level composable.
 
-### Local Development
+### When Adding Dependencies
 
-1. Install dependencies: `npm install`
-2. Start demo: `npm run dev`
-3. Open browser at `http://localhost:3000`
-4. Edit source files in `src/` - HMR enabled
-5. Edit demo files in `demo/src/` - HMR enabled
+Check if it should be a:
 
-### Adding New Features
-
-1. Update types in `src/types/index.ts`
-2. Implement in `src/components/VChart.vue` and/or `src/composables/useECharts.ts`
-3. Add tests in `tests/unit/`
-4. Update documentation in `docs/`
-5. Add demo example in `demo/src/views/`
-
-### Before Committing
-
-1. Run type check: `npm run type-check`
-2. Run tests: `npm test`
-3. Run linter: `npm run lint`
-4. Format code: `npm run format`
-5. Build to verify: `npm run build`
-
-## CI/CD
-
-### GitHub Actions Workflows
-
-**`.github/workflows/test.yml`** - Runs on push/PR
-
-- Tests on Ubuntu, Windows, macOS
-- Node versions: 18.x, 20.x
-- Runs linting, type-check, tests, and builds
-- Uploads coverage to Codecov
-
-**`.github/workflows/publish.yml`** - Runs on release creation
-
-- Builds and publishes to npm with provenance
-- Requires `NPM_TOKEN` secret
-
-**`.github/workflows/pages.yml`** - Runs on push to main
-
-- Builds VitePress docs and demo
-- Deploys to GitHub Pages
-
-## Important Notes
-
-**ResizeObserver:**
-
-- Native browser API (no external dependencies)
-- Throttled to avoid excessive resize calls
-- Default throttle: 100ms (configurable)
-
-**Component Name:**
-
-- Component is named `VChart` (not IEcharts from v2)
-- Exported as both named export and default
-
-**Build Output:**
-
-- `dist/index.js` - ESM (full version)
-- `dist/index.cjs` - CommonJS (full version)
-- `dist/index.umd.js` - UMD (full version)
-- `dist/lite.js`, `dist/lite.cjs` - Lite versions
-- `dist/types/` - TypeScript declarations
-
-**Breaking Changes from v2:**
-
-- Vue 3 only (no Vue 2 support)
-- Props renamed: `resizable` → `autoresize`, `notMerge` → part of `updateOptions`
-- Component name: `IEcharts` → `VChart`
-- No lodash.throttle dependency (native throttling)
-- No element-resize-detector (uses ResizeObserver)
-
-## Troubleshooting
-
-**TypeScript errors during development:**
-
-- Run `npm run type-check` to see all errors
-- Check `tsconfig.json` for strict mode settings
-- Ensure all props are properly typed
-
-**Tests failing:**
-
-- Check `tests/setup.ts` for proper mocks
-- ResizeObserver and Canvas mocks are required
-- Run `npm run test:ui` for interactive debugging
-
-**Build failures:**
-
-- Verify `vite.config.ts` external dependencies
-- Check `package.json` exports field
-- Ensure no TypeScript errors: `npm run type-check`
-
-**Demo not working:**
-
-- Check `demo/vite.config.ts` alias configuration
-- Ensure ECharts modules are registered in `demo/src/main.ts`
-- Verify source files exist in `src/`
+- **peerDependency**: User-provided (vue, echarts)
+- **devDependency**: Build/test tools only
+- **dependency**: Avoid if possible to keep the library lightweight

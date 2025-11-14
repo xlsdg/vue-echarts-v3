@@ -1,11 +1,18 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [
     vue(),
+    cssInjectedByJsPlugin({
+      jsAssetsFilterFunction: (outputChunk) => {
+        // 在两个入口文件中都注入 CSS
+        return /^(index|lite)\.(js|cjs)$/.test(outputChunk.fileName)
+      }
+    }),
     dts({
       include: ['src/**/*.ts', 'src/**/*.vue'],
       exclude: ['src/**/__tests__/**', 'src/**/*.spec.ts', 'src/**/*.test.ts'],
@@ -41,12 +48,7 @@ export default defineConfig({
           echarts: 'echarts',
           'echarts/core': 'echarts'
         },
-        exports: 'named',
-        // Asset file names
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'style.css') return 'style.css'
-          return assetInfo.name || 'asset'
-        }
+        exports: 'named'
       }
     },
     // Generate sourcemaps for debugging

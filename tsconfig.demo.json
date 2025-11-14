@@ -1,13 +1,17 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": false
+    // Demo is a browser app, only needs vite client types
+    "types": ["vite/client"]
   },
   "include": [
-    "demo/**/*.ts",
-    "demo/**/*.vue"
+    "demo/env.d.ts",
+    "demo/src/**/*.ts",
+    "demo/src/**/*.vue"
   ],
   "exclude": [
+    "demo/vite.config.ts",
+    "demo/dist-demo",
     "node_modules"
   ]
 }
