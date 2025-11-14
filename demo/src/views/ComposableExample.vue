@@ -34,6 +34,7 @@ const { setOption, clear, getDataURL } = useECharts(
   },
   {
     click: (event) => {
+      // eslint-disable-next-line no-console
       console.log('Composable - Chart clicked:', event)
     }
   }
@@ -58,6 +59,7 @@ const clearChart = () => {
 
 const exportImage = () => {
   const url = getDataURL({ type: 'png', pixelRatio: 2 })
+  // eslint-disable-next-line no-console
   console.log('Data URL:', url.substring(0, 100) + '...')
   alert('Check console for data URL')
 }

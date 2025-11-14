@@ -35,9 +35,6 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
-  "browser": "./dist/index.umd.js",
-  "unpkg": "./dist/index.umd.js",
-  "jsdelivr": "./dist/index.umd.js",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -83,11 +80,11 @@
     "@vitest/coverage-v8": "^4.0.8",
     "@vitest/ui": "^4.0.8",
     "@vue/test-utils": "^2.4.6",
-    "ajv": "^8.17.1",
     "echarts": "^6.x",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.5.1",
+    "globals": "^15.13.0",
     "jsdom": "^27.2.0",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",

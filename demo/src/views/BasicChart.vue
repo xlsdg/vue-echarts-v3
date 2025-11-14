@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { EChartsOption } from 'echarts'
+import type { EChartsOption, EChartsType, ECElementEvent } from 'echarts'
 
 const option = ref<EChartsOption>({
   title: {
@@ -51,11 +51,13 @@ const randomizeData = () => {
   }
 }
 
-const handleReady = (instance: any) => {
+const handleReady = (instance: EChartsType) => {
+  // eslint-disable-next-line no-console
   console.log('Chart ready:', instance)
 }
 
-const handleClick = (event: any) => {
+const handleClick = (event: ECElementEvent) => {
+  // eslint-disable-next-line no-console
   console.log('Chart clicked:', event)
 }
 </script>

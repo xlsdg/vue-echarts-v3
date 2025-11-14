@@ -30,6 +30,7 @@ export function error(message: string, error?: unknown): void {
  */
 export function info(message: string, data?: unknown): void {
   if (import.meta.env.DEV) {
+    // eslint-disable-next-line no-console
     console.info(`${PREFIX} ${message}`, data !== undefined ? data : '')
   }
 }

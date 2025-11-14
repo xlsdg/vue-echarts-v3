@@ -60,6 +60,7 @@ const decreaseHeight = () => {
 }
 
 const handleResize = (width: number, height: number) => {
+  // eslint-disable-next-line no-console
   console.log('Chart resized:', { width, height })
 }
 </script>
