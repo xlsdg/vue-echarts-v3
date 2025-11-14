@@ -48,12 +48,9 @@
       "types": "./dist/types/lite.d.ts",
       "import": "./dist/lite.js",
       "require": "./dist/lite.cjs"
-    },
-    "./dist/style.css": "./dist/style.css"
+    }
   },
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": false,
   "scripts": {
     "dev": "vite --config demo/vite.config.ts",
     "build": "npm run type-check && vite build",

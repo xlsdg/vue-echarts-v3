@@ -9,7 +9,6 @@ export default defineConfig({
     vue(),
     cssInjectedByJsPlugin({
       jsAssetsFilterFunction: (outputChunk) => {
-        // 在两个入口文件中都注入 CSS
         return /^(index|lite)\.(js|cjs)$/.test(outputChunk.fileName)
       }
     }),
