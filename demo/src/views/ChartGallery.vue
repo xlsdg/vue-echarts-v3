@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import type { EChartsOption } from 'echarts'
 
-// 饼图配置
+// Pie chart configuration
 const pieOption = ref<EChartsOption>({
   title: {
     text: 'Pie Chart',
@@ -52,7 +52,7 @@ const pieOption = ref<EChartsOption>({
   ]
 })
 
-// 散点图配置
+// Scatter chart configuration
 const scatterOption = ref<EChartsOption>({
   title: {
     text: 'Scatter Chart',
@@ -96,7 +96,7 @@ const scatterOption = ref<EChartsOption>({
   ]
 })
 
-// 雷达图配置
+// Radar chart configuration
 const radarOption = ref<EChartsOption>({
   title: {
     text: 'Radar Chart',
@@ -135,7 +135,7 @@ const radarOption = ref<EChartsOption>({
   ]
 })
 
-// K线图配置
+// Candlestick chart configuration
 const candlestickOption = ref<EChartsOption>({
   title: {
     text: 'Candlestick Chart',
@@ -164,7 +164,7 @@ const candlestickOption = ref<EChartsOption>({
   ]
 })
 
-// 条形图配置
+// Bar chart configuration
 const barOption = ref<EChartsOption>({
   title: {
     text: 'Bar Chart',
@@ -205,7 +205,7 @@ const barOption = ref<EChartsOption>({
   ]
 })
 
-// 仪表盘配置
+// Gauge chart configuration
 const gaugeOption = ref<EChartsOption>({
   title: {
     text: 'Gauge Chart',

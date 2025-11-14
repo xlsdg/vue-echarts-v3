@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import type { EChartsOption } from 'echarts'
 
-// 共用的图表配置
+// Shared chart configuration
 const chartOption = ref<EChartsOption>({
   title: {
     text: 'Sample Chart',
