@@ -46,7 +46,7 @@ jobs:
           mkdir -p public
           cp -r docs/.vitepress/dist/* public/
           mkdir -p public/demo
-          cp -r dist-demo/* public/demo/
+          cp -r demo/dist-demo/* public/demo/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
